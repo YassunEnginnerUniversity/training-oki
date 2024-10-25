@@ -49,6 +49,9 @@ gem 'base64'
 gem 'bigdecimal'
 gem 'drb'
 
+gem "bootstrap-sass",  "3.4.1"
+gem "sassc-rails",     "2.1.2"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
