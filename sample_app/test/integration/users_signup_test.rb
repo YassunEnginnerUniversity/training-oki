@@ -13,4 +13,13 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     assert_template 'users/new'
   end
+
+  test "valid signup information" do
+    assert_difference "User.count", 1 do
+      post users_path, params: { user: { name:  "testuser", email: "user@valid.com", password:"testusertestuser" ,password_confirmation: "testusertestuser" }}
+    end
+    follow_redirect!
+    assert_template 'users/show'
+    assert flash[:success]
+  end
 end
