@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   # end
 
   def setup 
-    @user = User.new(name: "Example User", email: "Foo@ExAMPle.CoM")
+    @user = User.new(name: "Example User", email: "user@example.com",password: "foobarfoobar", password_confirmation: "foobarfoobar")
   end
 
   test "should be valid" do
@@ -33,11 +33,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  # test "email addresses should be unique" do
-  #   duplicate_user = @user.dup
-  #   @user.save
-  #   assert_not duplicate_user.valid?
-  # end
+  test "email addresses should be unique" do
+    duplicate_user = @user.dup
+    @user.save
+    assert_not duplicate_user.valid?
+  end
 
   test "email validation should accept valid addresses" do
     valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]             
@@ -52,5 +52,15 @@ class UserTest < ActiveSupport::TestCase
     @user.email = mixed_case_email
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
+  end
+
+  test "password shoud be present (nonblank)" do
+    @user.password = @user.password_confirmation = " " * 8
+    assert_not @user.valid?
+  end
+
+  test "password shoud be more than 8 character" do
+    @user.password = @user.password_confirmation = "a" * 7
+    assert_not @user.valid?
   end
 end
