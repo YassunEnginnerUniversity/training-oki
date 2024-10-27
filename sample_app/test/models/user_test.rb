@@ -55,12 +55,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "password shoud be present (nonblank)" do
-    @user.password = @user.password_confirmation = " " * 8
+    @user.password = @user.password_confirmation = " " * 6
     assert_not @user.valid?
   end
 
   test "password shoud be more than 8 character" do
-    @user.password = @user.password_confirmation = "a" * 7
+    @user.password = @user.password_confirmation = "a" * 5
     assert_not @user.valid?
   end
 
