@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user,     only: :destroy
 
   def index 
     @users = User.paginate(page: params[:page]) #params[:page]はwill_pagenateによって自動生成されている
@@ -41,6 +42,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url, status: :see_other
+  end
+
   private
 
     def user_params
@@ -59,5 +66,10 @@ class UsersController < ApplicationController
 
       # ログインしているユーザとページのユーザが同じではない場合リダイレクトさせる
       redirect_to(root_url, status: :see_other) unless current_user?(@user)
+    end
+
+    # 管理者かどうか確認
+    def admin_user
+      redirect_to(root_url, status: :see_other) unless current_user.admin?
     end
 end
