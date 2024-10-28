@@ -31,6 +31,7 @@ class PasswordResetsController < ApplicationController
       forget(@user)
       reset_session
       log_in @user
+      @user.forget_reset_token
       flash[:success] = "Password has been reset."
       redirect_to @user
     else

@@ -46,6 +46,10 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  def forget_reset_token
+    update_attribute(:reset_digest, nil)
+  end
+
   # セッションハイジャック防止のためにセッショントークンを返す
   # この記憶ダイジェストを再利用しているのは単に利便性のため
   def session_token
