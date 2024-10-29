@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :microposts
+
   # データベースには保存しない属性を作成
   attr_accessor :remember_token, :activation_token, :reset_token
 
