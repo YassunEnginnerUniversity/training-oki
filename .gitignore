@@ -6,31 +6,21 @@
 
 # Ignore bundler config.
 /api-and-rspec-training/.bundle
-/rails-tutorial/sample_app/.bundle
 
 # Ignore all environment files (except templates).
 /api-and-rspec-training/.env*
 /api-and-rspec-training/!.env*.erb
-/rails-tutorial/sample_app/.env*
-/rails-tutorial/sample_app/!.env*.erb
 
 # Ignore all logfiles and tempfiles.
 /api-and-rspec-training/log/*
 /api-and-rspec-training/tmp/*
 /api-and-rspec-training/!log/.keep
 /api-and-rspec-training/!tmp/.keep
-/rails-tutorial/sample_app/log/*
-/rails-tutorial/sample_app/tmp/*
-/rails-tutorial/sample_app/!log/.keep
-/rails-tutorial/sample_app/!tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
 /api-and-rspec-training/tmp/pids/*
 /api-and-rspec-training/!tmp/pids/
 /api-and-rspec-training/!tmp/pids/.keep
-/rails-tutorial/sample_app/tmp/pids/*
-/rails-tutorial/sample_app/!tmp/pids/
-/rails-tutorial/sample_app/!tmp/pids/.keep
 
 # Ignore storage (uploaded files in development and any SQLite databases).
 /api-and-rspec-training/storage/*
@@ -38,12 +28,36 @@
 /api-and-rspec-training/tmp/storage/*
 /api-and-rspec-training/!tmp/storage/
 /api-and-rspec-training/!tmp/storage/.keep
-/rails-tutorial/sample_app/storage/*
-/rails-tutorial/sample_app/!storage/.keep
-/rails-tutorial/sample_app/tmp/storage/*
-/rails-tutorial/sample_app/!tmp/storage/
-/rails-tutorial/sample_app/!tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
 /api-and-rspec-training/config/master.key
+
+# Ignore bundler config.
+/rails-tutorial/sample_app/.bundle
+
+# Ignore the default SQLite database.
+/rails-tutorial/sample_app/db/*.sqlite3
+/rails-tutorial/sample_app/db/*.sqlite3-*
+
+# Ignore all logfiles and tempfiles.
+/rails-tutorial/sample_app/log/*
+/rails-tutorial/sample_app/tmp/*
+!/rails-tutorial/sample_app/log/.keep
+!/rails-tutorial/sample_app/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/rails-tutorial/sample_app/tmp/pids/
+!/rails-tutorial/sample_app/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/rails-tutorial/sample_app/storage/*
+!/rails-tutorial/sample_app/storage/.keep
+/rails-tutorial/sample_app/tmp/storage/*
+!/rails-tutorial/sample_app/tmp/storage/
+!/rails-tutorial/sample_app/tmp/storage/.keep
+
+/rails-tutorial/sample_app/public/assets
+
+# Ignore master key for decrypting credentials and more.
 /rails-tutorial/sample_app/config/master.key
