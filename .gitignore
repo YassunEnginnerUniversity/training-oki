@@ -5,29 +5,29 @@
 # `$XDG_CONFIG_HOME/git/ignore` or `~/.config/git/ignore`
 
 # Ignore bundler config.
-/api-and-rspec-training/.bundle
+api-and-rspec-training/.bundle
 
 # Ignore all environment files (except templates).
-/api-and-rspec-training/.env*
-/api-and-rspec-training/!.env*.erb
+api-and-rspec-training/.env*
+api-and-rspec-training/!.env*.erb
 
 # Ignore all logfiles and tempfiles.
-/api-and-rspec-training/log/*
-/api-and-rspec-training/tmp/*
-/api-and-rspec-training/!log/.keep
-/api-and-rspec-training/!tmp/.keep
+api-and-rspec-training/log/*
+api-and-rspec-training/tmp/*
+api-and-rspec-training/!log/.keep
+api-and-rspec-training/!tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
-/api-and-rspec-training/tmp/pids/*
-/api-and-rspec-training/!tmp/pids/
-/api-and-rspec-training//api-and-rspec-training/!tmp/pids/.keep
+api-and-rspec-training/tmp/pids/*
+api-and-rspec-training/!tmp/pids/
+api-and-rspec-training/!tmp/pids/.keep
 
 # Ignore storage (uploaded files in development and any SQLite databases).
-/api-and-rspec-training/storage/*
-/api-and-rspec-training/!storage/.keep
-/api-and-rspec-training/tmp/storage/*
-/api-and-rspec-training/!tmp/storage/
-/api-and-rspec-training/!tmp/storage/.keep
+api-and-rspec-training/storage/*
+api-and-rspec-training/!storage/.keep
+api-and-rspec-training/tmp/storage/*
+api-and-rspec-training/!tmp/storage/
+api-and-rspec-training/!tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
-/api-and-rspec-training/config/master.key
+api-and-rspec-training/config/master.key
