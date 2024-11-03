@@ -10,7 +10,7 @@ RSpec.describe "Api::Sessions", type: :request do
 
         expect(user).to be_valid
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq("message" => "ログイン成功")
+        expect(JSON.parse(response.body)).to eq("message" => "ログインに成功しました。")
       end
     end
 
@@ -19,7 +19,7 @@ RSpec.describe "Api::Sessions", type: :request do
         post "/api/login", params: { username: "invalid_user", password: "password" }
 
         expect(response).to have_http_status(:unauthorized)
-        expect(JSON.parse(response.body)).to eq("error" => "ログイン失敗")
+        expect(JSON.parse(response.body)).to eq("error" => "無効なユーザネームかパスワードです。")
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe "Api::Sessions", type: :request do
         post "/api/login", params: { username: user.username, password: "wrong_password" }
 
         expect(response).to have_http_status(:unauthorized)
-        expect(JSON.parse(response.body)).to eq("error" => "ログイン失敗")
+        expect(JSON.parse(response.body)).to eq("error" => "無効なユーザネームかパスワードです。")
       end
     end
 
@@ -61,6 +61,24 @@ RSpec.describe "Api::Sessions", type: :request do
         invalid_user = FactoryBot.build(:user, username: "username", password: "test")
         post "/api/login", params: { username: invalid_user.username, password: invalid_user.password }
         expect(invalid_user).not_to be_valid
+      end
+    end
+
+    context "不正なリクエストメソッドを使用した場合" do
+      it "GETリクエストを送ると404not_foundを返す" do
+        get "/api/login", params: { username: user.username, password: user.password }
+
+        expect(response).to have_http_status(:not_found)
+      end
+      it "PUTリクエストを送ると404not_foundを返す" do
+        put "/api/login", params: { username: user.username, password: user.password }
+
+        expect(response).to have_http_status(:not_found)
+      end
+      it "DELETEリクエストを送ると404not_foundを返す" do
+        delete "/api/login", params: { username: user.username, password: user.password }
+
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
