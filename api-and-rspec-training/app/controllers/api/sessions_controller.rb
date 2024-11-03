@@ -7,7 +7,7 @@ class Api::SessionsController < ApplicationController
 
       render json: { message: "ログイン成功" }, status: :ok
     else
-      render json: { message: "ログイン失敗" }, status: :unauthorized
+      render json: { error: "ログイン失敗" }, status: :unauthorized
     end
   end
 end
