@@ -4,20 +4,28 @@ RSpec.describe "Api::Users", type: :request do
   let!(:user) { FactoryBot.create(:user)}
   let!(:other_user_id) { 9999 }
 
-  context "セッションが保持されている場合" do
+  context "セッションで認証されている場合" do
     before do
       post "/api/login", params: { username: user.username, password: user.password }  # 事前にログインをしておく
     end
 
-    it "/api/users/{id}にはアクセスできる" do
+    it "存在しているユーザの情報を返す" do
       get "/api/users/#{user.id}"
-  
       expect(response).to have_http_status(:ok)
+      json_response = JSON.parse(response.body)
+      expect(json_response["id"]).to eq(user.id)
+      expect(json_response["username"]).to eq(user.username)
+    end
+
+    it "存在しないユーザのIDをリクエストすると404を返す" do
+      get "/api/users/#{other_user_id}"
+      expect(response).to have_http_status(:not_found)
+      expect(JSON.parse(response.body)).to eq("error" => "ユーザが見つかりませんでした。")
     end
   end
 
-  context "セッションが保持されていない場合" do
-    it "/api/users/{id}にはアクセスできない" do
+  context "セッションで認証されていない場合" do
+    it "認証エラーメッセージと401を返す" do
       get "/api/users/#{user.id}"
   
       expect(response).to have_http_status(:unauthorized)
