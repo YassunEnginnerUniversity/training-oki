@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::Users", type: :request do
+RSpec.describe "Api::Posts", type: :request do
   let!(:user) { FactoryBot.create(:user)}
   let!(:other_user_id) { 9999 }
 
@@ -9,28 +9,34 @@ RSpec.describe "Api::Users", type: :request do
       post "/api/login", params: { username: user.username, password: user.password }  # 事前にログインをしておく
     end
 
-    it "存在しているユーザの情報を返す" do
-      get "/api/users/#{user.id}"
+    it "投稿が存在する場合、ステータスは200ですべての投稿を返す" do
+      FactoryBot.create_list(:post, 10, user: user)
+
+      get "/api/posts"
       expect(response).to have_http_status(:ok)
+
       json_response = JSON.parse(response.body)
-      expect(json_response["id"]).to eq(user.id)
-      expect(json_response["username"]).to eq(user.username)
+      expect(json_response.length).to eq(10)
+      json_response.each do | post |
+        expect(post["content"]).to be_present # contentが空でないかチェック
+      end
     end
 
-    it "存在しないユーザのIDをリクエストすると404を返す" do
-      get "/api/users/#{other_user_id}"
-      expect(response).to have_http_status(:not_found)
-      expect(JSON.parse(response.body)).to eq("error" => "ユーザが見つかりませんでした。")
+    it "投稿が存在しない場合、ステータスは200で空の配列を返す" do
+      get "/api/posts"
+      expect(response).to have_http_status(:ok)
+
+      json_response = JSON.parse(response.body)
+      expect(json_response.length).to eq(0)
     end
   end
 
   context "セッションで認証されていない場合" do
     it "ステータスは401で認証エラーメッセージを返す" do
-      get "/api/users/#{user.id}"
+      get "/api/posts"
   
       expect(response).to have_http_status(:unauthorized)
       expect(JSON.parse(response.body)).to eq("error" => "認証されていないアクセスです。")
     end
   end
-
 end
