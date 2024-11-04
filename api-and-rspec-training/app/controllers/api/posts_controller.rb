@@ -14,4 +14,21 @@ class Api::PostsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render json: { error: "該当する投稿が見つかりませんでした。" }, status: :not_found
   end
+
+  def create
+    user_post = current_user.posts.build(post_params)
+
+    if user_post.save
+      render json: user_post, status: :ok
+    else
+      render json: { error: "投稿できませんでした" }, status: :unprocessable_entity
+    end
+  end
+
+
+  private
+
+    def post_params
+      params.require(:post).permit(:content)
+    end
 end
