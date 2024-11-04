@@ -25,7 +25,7 @@ RSpec.describe "Api::Users", type: :request do
   end
 
   context "セッションで認証されていない場合" do
-    it "認証エラーメッセージと401を返す" do
+    it "ステータスは401で認証エラーメッセージを返す" do
       get "/api/users/#{user.id}"
   
       expect(response).to have_http_status(:unauthorized)

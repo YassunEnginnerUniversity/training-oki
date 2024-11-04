@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :post do
-    content { "MyText" }
-    user { nil }
+    content { Faker::Lorem.paragraph(sentence_count: 10) }
   end
 end
