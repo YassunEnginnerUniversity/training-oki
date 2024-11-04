@@ -47,6 +47,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'rspec-rails', '~> 7.0.0'
   gem 'annotate'
+  gem 'faker'
 end
 
 
