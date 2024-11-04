@@ -21,7 +21,7 @@ class Api::PostsController < ApplicationController
     if user_post.save
       render json: user_post, status: :ok
     else
-      render json: { error: "投稿できませんでした" }, status: :unprocessable_entity
+      render json: { error: "投稿できませんでした。" }, status: :unprocessable_entity
     end
   end
 
