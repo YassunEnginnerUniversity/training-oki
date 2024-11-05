@@ -103,15 +103,23 @@ RSpec.describe "Api::Posts", type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
 
         json_response = JSON.parse(response.body)
-        expect(json_response).to eq("error" => "投稿できませんでした。")
+        expect(json_response).to eq("error" => "投稿内容が空です。")
       end
 
-      it "空のリクエストボディでのリクエストの場合、422ステータスを返し、エラーメッセージを返す" do
-        post "/api/posts", params: { post: {} }
+      it "空のpostオブジェクトを送信した場合、422ステータスを返し、エラーメッセージを返す" do
+        post "/api/posts", params: { post: {} }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
 
         json_response = JSON.parse(response.body)
-        expect(json_response).to eq("error" => "投稿できませんでした。")
+        expect(json_response).to eq("error" => "不正なリクエストであるため、投稿できませんでした。")
+      end
+
+      it "不正なキーでリクエストした場合、422ステータスを返し、エラーメッセージを返す" do
+        post "/api/posts", params: { invalid_key: { content: "Content" } }
+  
+        expect(response).to have_http_status(:unprocessable_entity)
+        json_response = JSON.parse(response.body)
+        expect(json_response).to eq("error" => "不正なリクエストであるため、投稿できませんでした。")
       end
     end
 
