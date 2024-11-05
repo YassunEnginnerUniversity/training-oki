@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     post "login", to: "sessions#create"
     resources :users, only: [:show]
-    resources :posts, only: [:index, :show]
+    resources :posts, only: [:index, :show, :create]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
