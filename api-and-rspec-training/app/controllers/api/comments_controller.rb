@@ -1,4 +1,6 @@
 class Api::CommentsController < ApplicationController
+  before_action :authenticate_user! # セッションを保持しているかアクションの前に確認
+
   def create
     if comment_params[:content].blank?
       return render json: { error: "コメントが空です。" }, status: :unprocessable_entity
