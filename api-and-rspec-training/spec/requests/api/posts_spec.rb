@@ -111,7 +111,7 @@ RSpec.describe "Api::Posts", type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
 
         json_response = JSON.parse(response.body)
-        expect(json_response).to eq("error" => "不正なリクエストであるため、投稿できませんでした。")
+        expect(json_response).to eq("error" => "不正なリクエストであるため、保存できませんでした。")
       end
 
       it "不正なキーでリクエストした場合、422ステータスを返し、エラーメッセージを返す" do
@@ -119,7 +119,7 @@ RSpec.describe "Api::Posts", type: :request do
   
         expect(response).to have_http_status(:unprocessable_entity)
         json_response = JSON.parse(response.body)
-        expect(json_response).to eq("error" => "不正なリクエストであるため、投稿できませんでした。")
+        expect(json_response).to eq("error" => "不正なリクエストであるため、保存できませんでした。")
       end
     end
 
@@ -131,7 +131,5 @@ RSpec.describe "Api::Posts", type: :request do
         expect(JSON.parse(response.body)).to eq("error" => "認証されていないアクセスです。")
       end
     end
-
-
   end
 end
