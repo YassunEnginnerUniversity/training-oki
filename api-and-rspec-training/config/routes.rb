@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
     post "login", to: "sessions#create"
-    resources :users, only: [:show]
+    resources :users, only: [:show] do
+      post "follow", to: "follow_users#create"
+    end
     resources :posts, only: [:index, :show, :create] do
       resource :like, only: [:create]
       resource :comments, only: [:create]
