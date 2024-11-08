@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show]
     resources :posts, only: [:index, :show, :create] do
       resource :like, only: [:create]
+      resource :comments, only: [:create]
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
