@@ -1,5 +1,5 @@
 class Api::PostsController < ApplicationController
-  # before_action :authenticate_user! # セッションを保持しているかアクションの前に確認
+  before_action :authenticate_user! # セッションを保持しているかアクションの前に確認
 
   # 例外処理 JSON以外のリクエストが来たときの場合
   rescue_from ActionDispatch::Http::Parameters::ParseError, with: :handle_parse_error
@@ -24,10 +24,10 @@ class Api::PostsController < ApplicationController
       return render json: { error: "投稿内容が空です。" }, status: :unprocessable_entity
     end
 
-    user_post = current_user.posts.build(post_params)
+    @user_post = current_user.posts.build(post_params)
 
-    if user_post.save
-      render json: user_post, status: :ok
+    if @user_post.save
+      render :create
     else
       render json: { error: "投稿できませんでした。" }, status: :unprocessable_entity
     end

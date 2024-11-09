@@ -57,6 +57,15 @@ RSpec.describe "Api::Posts", type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response["id"]).to eq(user_post.id)
         expect(json_response["content"]).to eq(user_post.content)
+        expect(json_response["user"]["id"]).to eq(user_post.user.id)
+        expect(json_response["user"]["username"]).to eq(user_post.user.username)
+        expect(json_response["likes_count"]).to eq(user_post.likes.count)
+        user_post.comments.each_with_index do |comment, index|
+          expect(json_response["comments"][index]["id"]).to eq(comment.id)
+          expect(json_response["comments"][index]["content"]).to eq(comment.content)
+          expect(json_response["comments"][index]["user"]["id"]).to eq(comment.user.id)
+          expect(json_response["comments"][index]["user"]["username"]).to eq(comment.user.username)
+        end
       end
 
       it "存在しない投稿ののIDをリクエストすると404を返す" do
