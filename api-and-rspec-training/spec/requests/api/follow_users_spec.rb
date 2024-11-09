@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Api::FollowUsers", type: :request do
   let!(:user) { FactoryBot.create(:user)}
   let!(:other_user) { FactoryBot.create(:user, :other_user)}
+  let!(:another_user) { FactoryBot.create(:user, :another_user)}
 
   describe "GET /api/posts/" do
     context "セッションで認証されている場合" do
@@ -33,6 +34,28 @@ RSpec.describe "Api::FollowUsers", type: :request do
         expect(response).to have_http_status(:not_found)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("該当するユーザーが見つかりませんでした。")
+      end
+
+      it "自分自身をフォローしようとすると422のステータスとエラーメッセージを返す" do
+        post "/api/users/#{user.id}/follow"  # 自分自身のIDでフォロー
+      
+        expect(response).to have_http_status(:unprocessable_entity)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to eq("自分自身をフォローすることはできません。")
+      end
+
+      it "複数人のユーザを登録することができる" do
+        post "/api/users/#{other_user.id}/follow"
+        expect(response).to have_http_status(:ok)
+        json_response = JSON.parse(response.body)
+        expect(json_response["message"]).to eq("フォローしました。")
+
+        post "/api/users/#{another_user.id}/follow" # さきにfollowしたユーザとは別のユーザ
+        expect(response).to have_http_status(:ok)
+        json_response = JSON.parse(response.body)
+        expect(json_response["message"]).to eq("フォローしました。")
+
+        expect(user.followings.count).to eq(2)
       end
     end
 
