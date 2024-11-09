@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Api::Likes", type: :request do
-  let!(:user) { FactoryBot.create(:user)}
+  let!(:user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
 
   describe "POST /api/posts/{post_id}/like" do
     context "セッションで認証されている場合" do
       before do
-        post "/api/login", params: { username: user.username, password: user.password }  # 事前にログインをしておく
+        post "/api/login", params: { username: user.username, password: user.password }
       end
 
       it "他の人の投稿に対していいねができる" do

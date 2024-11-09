@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Api::FollowUsers", type: :request do
-  let!(:user) { FactoryBot.create(:user)}
-  let!(:other_user) { FactoryBot.create(:user, :other_user)}
-  let!(:another_user) { FactoryBot.create(:user, :another_user)}
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:other_user) { FactoryBot.create(:user, :other_user) }
+  let!(:another_user) { FactoryBot.create(:user, :another_user) }
 
-  describe "GET /api/posts/" do
+  describe "POST /api/users/{id}/follow" do
     context "セッションで認証されている場合" do
       before do
-        post "/api/login", params: { username: user.username, password: user.password }  # 事前にログインをしておく
+        post "/api/login", params: { username: user.username, password: user.password }
       end
 
       it "ユーザーが他のユーザーをフォローできる" do
@@ -44,13 +44,13 @@ RSpec.describe "Api::FollowUsers", type: :request do
         expect(json_response["error"]).to eq("自分自身をフォローすることはできません。")
       end
 
-      it "複数人のユーザを登録することができる" do
+      it "複数のユーザーをフォローすることができる" do
         post "/api/users/#{other_user.id}/follow"
         expect(response).to have_http_status(:ok)
         json_response = JSON.parse(response.body)
         expect(json_response["message"]).to eq("フォローしました。")
 
-        post "/api/users/#{another_user.id}/follow" # さきにfollowしたユーザとは別のユーザ
+        post "/api/users/#{another_user.id}/follow" # 別のユーザーをフォロー
         expect(response).to have_http_status(:ok)
         json_response = JSON.parse(response.body)
         expect(json_response["message"]).to eq("フォローしました。")
