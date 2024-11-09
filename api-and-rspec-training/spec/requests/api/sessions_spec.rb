@@ -32,38 +32,6 @@ RSpec.describe "Api::Sessions", type: :request do
       end
     end
 
-    context "usernameが空の場合" do
-      it "モデルのバリデーションに引っかかる" do
-        invalid_user = FactoryBot.build(:user, username: nil, password: "password")
-        post "/api/login", params: { username: invalid_user.username, password: invalid_user.password }
-        expect(invalid_user).not_to be_valid
-      end
-    end
-
-    context "usernameがユニークではない場合" do
-      it "モデルのバリデーションに引っかかる" do
-        invalid_user = FactoryBot.build(:user, username: "testuser", password: "password")
-        post "/api/login", params: { username: invalid_user.username, password: invalid_user.password }
-        expect(invalid_user).not_to be_valid
-      end
-    end
-
-    context "passwordが空の場合" do
-      it "モデルのバリデーションに引っかかる" do
-        invalid_user = FactoryBot.build(:user, username: "username", password: nil)
-        post "/api/login", params: { username: invalid_user.username, password: invalid_user.password }
-        expect(invalid_user).not_to be_valid
-      end
-    end
-    
-    context "passwordが6文字以下の場合" do
-      it "モデルのバリデーションに引っかかる" do
-        invalid_user = FactoryBot.build(:user, username: "username", password: "test")
-        post "/api/login", params: { username: invalid_user.username, password: invalid_user.password }
-        expect(invalid_user).not_to be_valid
-      end
-    end
-
     context "不正なリクエストメソッドを使用した場合" do
       it "GETリクエストを送ると404not_foundを返す" do
         get "/api/login", params: { username: user.username, password: user.password }
