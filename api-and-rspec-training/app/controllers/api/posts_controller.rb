@@ -1,5 +1,5 @@
 class Api::PostsController < ApplicationController
-  before_action :authenticate_user! # セッションを保持しているかアクションの前に確認
+  # before_action :authenticate_user! # セッションを保持しているかアクションの前に確認
 
   # 例外処理 JSON以外のリクエストが来たときの場合
   rescue_from ActionDispatch::Http::Parameters::ParseError, with: :handle_parse_error
@@ -9,8 +9,8 @@ class Api::PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 
   def index
-    posts = Post.all
-    render json: posts, status: :ok
+    @posts = Post.all
+    render :index
   end
 
   def show
