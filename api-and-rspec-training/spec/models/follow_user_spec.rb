@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe FollowUser, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:other_user) { FactoryBot.create(:user, :other_user) }
-  let(:invalid_follow) {FollowUser.new(follower_id: user.id, followed_id: user.id) }
+  let(:invalid_follow) { FollowUser.new(follower_id: user.id, followed_id: user.id) }
 
   context "バリデーションの確認" do
     it "同じユーザーを複数回フォローできない" do

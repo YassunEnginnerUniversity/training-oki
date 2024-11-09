@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Api::Posts", type: :request do
-  let!(:user) { FactoryBot.create(:user)}
+  let!(:user) { FactoryBot.create(:user) }
   let!(:other_user_id) { 9999 }
   let!(:other_user_post_id) { 9999 }
 
@@ -43,7 +43,7 @@ RSpec.describe "Api::Posts", type: :request do
   end
 
   describe "GET /api/posts/{id}" do
-    let!(:user_post) { FactoryBot.create(:post, user: user)}
+    let!(:user_post) { FactoryBot.create(:post, user: user) }
     context "セッションで認証されている場合" do
       before do
         post "/api/login", params: { username: user.username, password: user.password }
@@ -84,7 +84,7 @@ RSpec.describe "Api::Posts", type: :request do
   end
 
   describe "POST /api/posts/" do
-    let!(:user_post) { FactoryBot.create(:post, user: user)}
+    let!(:user_post) { FactoryBot.create(:post, user: user) }
     context "セッションで認証されている場合" do
       before do
         post "/api/login", params: { username: user.username, password: user.password }
