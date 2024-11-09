@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     post "login", to: "sessions#create"
     resources :users, only: [:show] do
       post "follow", to: "follow_users#create"
