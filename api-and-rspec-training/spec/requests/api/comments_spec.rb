@@ -21,6 +21,10 @@ RSpec.describe "Api::Comments", type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response).to have_key("id")
         expect(json_response["content"]).to eq(user_comment.content)
+        expect(json_response["post_id"]).to eq(other_user_post.id)
+        expect(json_response["user"]["id"]).to eq(user.id)
+        expect(json_response["user"]["username"]).to eq(user.username)
+        expect(json_response).to have_key("created_at")
       end
 
       it "コメントのcontentが空のリクエストの場合、422ステータスを返し、エラーメッセージを返す" do

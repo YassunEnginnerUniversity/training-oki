@@ -46,8 +46,6 @@ RSpec.describe "Api::Likes", type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("該当する投稿が見つかりませんでした。")
       end
-
-      
     end
 
     context "セッションで認証されていない場合" do

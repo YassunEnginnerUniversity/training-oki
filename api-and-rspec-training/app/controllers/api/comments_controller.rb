@@ -13,12 +13,12 @@ class Api::CommentsController < ApplicationController
       return render json: { error: "コメントが空です。" }, status: :unprocessable_entity
     end
 
-    post = Post.find(params[:post_id])
-    comment = post.comments.build(comment_params)
-    comment.user = current_user
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    @comment.user = current_user
 
-    if comment.save
-      render json: comment, status: :ok
+    if @comment.save
+      render :create
     else
       render json: { error: "コメントができませんでした。"}, status: :unprocessable_entity
     end
