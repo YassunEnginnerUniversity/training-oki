@@ -14,8 +14,8 @@ class Api::PostsController < ApplicationController
   end
 
   def show
-    post = Post.find(params[:id])
-    render json: post, status: :ok
+    @post = Post.find(params[:id])
+    render :show
   end
 
   def create
