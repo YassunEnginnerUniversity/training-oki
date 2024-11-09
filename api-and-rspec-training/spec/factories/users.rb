@@ -7,5 +7,10 @@ FactoryBot.define do
       username { "otheruser" }
       password { "otherpassword" }
     end
+
+    trait :another_user do
+      username { "another" }
+      password { "anotherpassword" }
+    end
   end
 end
