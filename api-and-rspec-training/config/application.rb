@@ -33,8 +33,8 @@ module ApiAndRspecTraining
 
     # セッションを有効にする（APIモードでのセッションを有効化、セッション関連のミドルウェアを読み込む）
     config.api_only = false
-    config.session_store :cookie_store, key: '_api_and_rspec_training_session'
+    config.session_store :cookie_store, key: "_api_and_rspec_training_session"
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_api_and_rspec_training_session'
+    config.middleware.use ActionDispatch::Session::CookieStore, key: "_api_and_rspec_training_session"
   end
 end

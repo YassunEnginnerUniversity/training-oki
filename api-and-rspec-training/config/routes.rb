@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     post "login", to: "sessions#create"
-    resources :users, only: [:show] do
+    resources :users, only: [ :show ] do
       post "follow", to: "follow_users#create"
     end
-    resources :posts, only: [:index, :show, :create] do
-      resource :like, only: [:create]
-      resource :comments, only: [:create]
+    resources :posts, only: [ :index, :show, :create ] do
+      resource :like, only: [ :create ]
+      resource :comments, only: [ :create ]
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

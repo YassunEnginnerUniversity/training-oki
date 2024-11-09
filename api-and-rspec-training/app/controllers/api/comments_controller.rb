@@ -20,7 +20,7 @@ class Api::CommentsController < ApplicationController
     if @comment.save
       render :create
     else
-      render json: { error: "コメントができませんでした。"}, status: :unprocessable_entity
+      render json: { error: "コメントができませんでした。" }, status: :unprocessable_entity
     end
   end
 

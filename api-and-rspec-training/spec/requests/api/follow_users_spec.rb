@@ -38,7 +38,7 @@ RSpec.describe "Api::FollowUsers", type: :request do
 
       it "自分自身をフォローしようとすると422のステータスとエラーメッセージを返す" do
         post "/api/users/#{user.id}/follow"  # 自分自身のIDでフォロー
-      
+
         expect(response).to have_http_status(:unprocessable_entity)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("自分自身をフォローすることはできません。")
@@ -62,7 +62,7 @@ RSpec.describe "Api::FollowUsers", type: :request do
     context "セッションで認証されていない場合" do
       it "ステータスは401で認証エラーメッセージを返す" do
         post "/api/users/#{other_user.id}/follow"
-    
+
         expect(response).to have_http_status(:unauthorized)
         expect(JSON.parse(response.body)).to eq("error" => "認証されていないアクセスです。")
       end

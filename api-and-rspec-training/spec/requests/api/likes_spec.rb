@@ -32,7 +32,7 @@ RSpec.describe "Api::Likes", type: :request do
         other_user_post = FactoryBot.create(:post, user: other_user)
         post "/api/posts/#{other_user_post.id}/like"  # 最初の「いいね」
         post "/api/posts/#{other_user_post.id}/like"  # 2回目の「いいね」
-    
+
         expect(response).to have_http_status(:unprocessable_entity)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("すでにいいね済みです。")
@@ -52,7 +52,7 @@ RSpec.describe "Api::Likes", type: :request do
       it "ステータスは401で認証エラーメッセージを返す" do
         other_user_post = FactoryBot.create(:post, user: other_user)
         post "/api/posts/#{other_user_post.id}/like"
-    
+
         expect(response).to have_http_status(:unauthorized)
         expect(JSON.parse(response.body)).to eq("error" => "認証されていないアクセスです。")
       end
