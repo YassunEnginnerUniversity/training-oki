@@ -3,7 +3,6 @@ class Api::FollowUsersController < ApplicationController
 
   def create
     followed_user = User.find(params[:user_id])
-
     if current_user == followed_user
       render json: { error: "自分自身をフォローすることはできません。" }, status: :unprocessable_entity
     elsif current_user.followings.include?(followed_user)
@@ -12,7 +11,22 @@ class Api::FollowUsersController < ApplicationController
       current_user.followings << followed_user # ログインしているユーザのfollowしているユーザの配列にフォローしたユーザを追加し、DBに保存する
       render :create
     end
+
+    binding.pry
     rescue ActiveRecord::RecordNotFound
       render json: { error: "該当するユーザーが見つかりませんでした。" }, status: :not_found
+  end
+
+  def destroy
+    unfollow_user = User.find(params[:user_id])
+
+    if current_user == followed_user
+      render json: { error: "自分自身のフォローを外すことはできません" }, status: :unprocessable_entity
+    elsif current_user.followings.exclude?(unfollow_user)
+      render json: { error: "すでにフォローを外しています" }, status: :unprocessable_entity
+    else
+      current_user.followings.delete(unfollow_user)
+      render :destroy
+    end
   end
 end
