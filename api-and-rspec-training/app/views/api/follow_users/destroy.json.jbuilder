@@ -1,1 +1,1 @@
-json.message "フォローを外しました"
+json.message "フォローを解除しました。"
