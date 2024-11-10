@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     post "login", to: "sessions#create"
     resources :users, only: [ :show ] do
       post "follow", to: "follow_users#create"
+      post "unfollow", to: "follow_users#destroy"
     end
     resources :posts, only: [ :index, :show, :create ] do
       resource :like, only: [ :create ]
