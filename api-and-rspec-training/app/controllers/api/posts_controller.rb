@@ -9,13 +9,13 @@ class Api::PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 
   def index
-    posts = Post.all
-    render json: posts, status: :ok
+    @posts = Post.all
+    render :index
   end
 
   def show
-    post = Post.find(params[:id])
-    render json: post, status: :ok
+    @post = Post.find(params[:id])
+    render :show
   end
 
   def create
@@ -24,10 +24,10 @@ class Api::PostsController < ApplicationController
       return render json: { error: "投稿内容が空です。" }, status: :unprocessable_entity
     end
 
-    user_post = current_user.posts.build(post_params)
+    @user_post = current_user.posts.build(post_params)
 
-    if user_post.save
-      render json: user_post, status: :ok
+    if @user_post.save
+      render :create
     else
       render json: { error: "投稿できませんでした。" }, status: :unprocessable_entity
     end

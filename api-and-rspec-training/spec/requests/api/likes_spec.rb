@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Api::Likes", type: :request do
-  let!(:user) { FactoryBot.create(:user)}
+  let!(:user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
 
   describe "POST /api/posts/{post_id}/like" do
     context "セッションで認証されている場合" do
       before do
-        post "/api/login", params: { username: user.username, password: user.password }  # 事前にログインをしておく
+        post "/api/login", params: { username: user.username, password: user.password }
       end
 
       it "他の人の投稿に対していいねができる" do
@@ -32,7 +32,7 @@ RSpec.describe "Api::Likes", type: :request do
         other_user_post = FactoryBot.create(:post, user: other_user)
         post "/api/posts/#{other_user_post.id}/like"  # 最初の「いいね」
         post "/api/posts/#{other_user_post.id}/like"  # 2回目の「いいね」
-    
+
         expect(response).to have_http_status(:unprocessable_entity)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("すでにいいね済みです。")
@@ -46,15 +46,13 @@ RSpec.describe "Api::Likes", type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("該当する投稿が見つかりませんでした。")
       end
-
-      
     end
 
     context "セッションで認証されていない場合" do
       it "ステータスは401で認証エラーメッセージを返す" do
         other_user_post = FactoryBot.create(:post, user: other_user)
         post "/api/posts/#{other_user_post.id}/like"
-    
+
         expect(response).to have_http_status(:unauthorized)
         expect(JSON.parse(response.body)).to eq("error" => "認証されていないアクセスです。")
       end

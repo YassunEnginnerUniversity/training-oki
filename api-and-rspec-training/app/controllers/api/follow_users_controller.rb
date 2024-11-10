@@ -10,7 +10,7 @@ class Api::FollowUsersController < ApplicationController
       render json: { error: "すでにフォローしています。" }, status: :unprocessable_entity
     else
       current_user.followings << followed_user # ログインしているユーザのfollowしているユーザの配列にフォローしたユーザを追加し、DBに保存する
-      render json: { message: "フォローしました。" }, status: :ok
+      render :create
     end
     rescue ActiveRecord::RecordNotFound
       render json: { error: "該当するユーザーが見つかりませんでした。" }, status: :not_found
