@@ -20,7 +20,11 @@ class Api::CommentsController < ApplicationController
     if @comment.save
       render :create
     else
-      render json: { error: "コメントができませんでした。" }, status: :unprocessable_entity
+      if @comment.errors[:content].include?("255字以上はコメントできません")
+        render json: { error: "255字以上はコメントできません" }, status: :unprocessable_entity
+      elsif @comment.errors[:content].include?("内容を入力してください")
+        render json: { error: "内容を入力してください" }, status: :unprocessable_entity
+      end
     end
   end
 
