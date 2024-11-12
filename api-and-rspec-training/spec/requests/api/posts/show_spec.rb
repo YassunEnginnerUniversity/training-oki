@@ -27,7 +27,7 @@ RSpec.describe "Api::Posts", type: :request do
   end
 
   shared_examples "Error case" do | status, error_message |
-    it "該当する投稿が取得できない" do
+    it "該当する投稿が取得に失敗する" do
       subject
       expect(response).to have_http_status(status)
       expect(json_response["error"]).to eq(error_message)
