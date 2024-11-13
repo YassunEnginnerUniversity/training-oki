@@ -45,7 +45,7 @@ RSpec.describe "Api::Users", type: :request do
 
     context "存在しないユーザのIDをリクエストする場合" do
       let(:target_user_id) { invaild_user_id }
-      include_examples "Error case", :unauthorized, "ユーザが見つかりませんでした。"
+      include_examples "Error case", :not_found, "ユーザが見つかりませんでした。"
     end
   end 
 
