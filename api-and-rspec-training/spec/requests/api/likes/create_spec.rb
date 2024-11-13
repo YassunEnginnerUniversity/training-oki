@@ -5,8 +5,8 @@ RSpec.describe Like, type: :request do
   let!(:user_post) { FactoryBot.create(:post, user: user) }
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
   let!(:another_user) { FactoryBot.create(:user, :another_user) }
-  let!(:other_user_post) { FactoryBot.create(:post, user: other_user)}
-  let!(:another_user_post) { FactoryBot.create(:post, user: other_user)}
+  let!(:other_user_post) { FactoryBot.create(:post, user: other_user) }
+  let!(:another_user_post) { FactoryBot.create(:post, user: other_user) }
   let!(:invalid_post_id) { 9999 }
   let(:json_response) { JSON.parse(response.body) }
 

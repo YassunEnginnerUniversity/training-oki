@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Api::Users", type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:invaild_user_id) { 9999 }
-  let(:json_response) { JSON.parse(response.body)}
+  let(:json_response) { JSON.parse(response.body) }
 
   subject { get "/api/users/#{target_user_id}" }
 
@@ -47,7 +47,7 @@ RSpec.describe "Api::Users", type: :request do
       let(:target_user_id) { invaild_user_id }
       include_examples "Error case", :not_found, "ユーザが見つかりませんでした。"
     end
-  end 
+  end
 
   context "セッションで認証されていない場合" do
     let(:target_user_id) { user.id }

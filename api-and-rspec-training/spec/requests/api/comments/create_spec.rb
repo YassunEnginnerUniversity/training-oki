@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "Api::Comments", type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
-  let!(:other_user_post) { FactoryBot.create(:post, user: other_user)}
-  let!(:user_comment) { FactoryBot.build(:comment, user: user, post: other_user_post)}
-  let(:json_response) { JSON.parse(response.body)}
+  let!(:other_user_post) { FactoryBot.create(:post, user: other_user) }
+  let!(:user_comment) { FactoryBot.build(:comment, user: user, post: other_user_post) }
+  let(:json_response) { JSON.parse(response.body) }
 
   subject { post "/api/posts/#{other_user_post.id}/comments", params: target_comment_data }
 
@@ -38,12 +38,12 @@ RSpec.describe "Api::Comments", type: :request do
     end
 
     context "正しいリクエストの場合" do
-      let(:target_comment_data) { { comment: { content: user_comment.content }}}
+      let(:target_comment_data) { { comment: { content: user_comment.content } } }
       include_examples "Successful case"
     end
 
     context "contentが空のリクエストの場合" do
-      let(:target_comment_data) { { comment:{ content: nil }} }
+      let(:target_comment_data) { { comment: { content: nil } } }
       include_examples "Error case", :unprocessable_entity, "コメントが空です。"
     end
 
@@ -59,7 +59,7 @@ RSpec.describe "Api::Comments", type: :request do
   end
 
   context "セッションで認証されていない場合" do
-    let(:target_comment_data) { {comment: { content: user_comment.content }} }
+    let(:target_comment_data) { { comment: { content: user_comment.content } } }
     include_examples "Error case", :unauthorized, "認証されていないアクセスです。"
   end
 end

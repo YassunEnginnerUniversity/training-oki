@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Api::Sessions", type: :request do
   let!(:user) { FactoryBot.create(:user) }
-  let!(:invalid_username_user) {{ username: "invalid_user", password: "password" } }
-  let!(:invalid_password_user) {{ username: user.username, password: "wrong_password" } }
-  let(:json_response) { JSON.parse(response.body)}
+  let!(:invalid_username_user) { { username: "invalid_user", password: "password" } }
+  let!(:invalid_password_user) { { username: user.username, password: "wrong_password" } }
+  let(:json_response) { JSON.parse(response.body) }
 
   subject { post "/api/login", params: target_user_data }
 
@@ -41,7 +41,7 @@ RSpec.describe "Api::Sessions", type: :request do
   end
 
   context "正常にログインできる" do
-    let(:target_user_data) {{ username: user.username, password: user.password }}
+    let(:target_user_data) { { username: user.username, password: user.password } }
     include_examples "Successful case"
   end
 

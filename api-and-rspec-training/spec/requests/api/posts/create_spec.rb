@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "Api::Posts", type: :request do
   let!(:user) { FactoryBot.create(:user) }
-  let!(:user_post) { FactoryBot.create(:post, user: user)}
-  let!(:valid_post) {FactoryBot.build(:post, user: user)}
+  let!(:user_post) { FactoryBot.create(:post, user: user) }
+  let!(:valid_post) { FactoryBot.build(:post, user: user) }
   let!(:invalid_user_post_id) { 9999 }
-  let(:json_response) { JSON.parse(response.body)}
+  let(:json_response) { JSON.parse(response.body) }
 
-  subject { post "/api/posts", params: target_post_data } 
+  subject { post "/api/posts", params: target_post_data }
 
   shared_examples "Successful case" do
     it "投稿ができる" do
@@ -35,12 +35,12 @@ RSpec.describe "Api::Posts", type: :request do
     end
 
     context "正しいリクエストの場合" do
-      let(:target_post_data) { { post:{ content: valid_post.content }} }
+      let(:target_post_data) { { post: { content: valid_post.content } } }
       include_examples "Successful case"
     end
 
     context "contentが空のリクエストの場合" do
-      let(:target_post_data) { { post:{ content: nil } }}
+      let(:target_post_data) { { post: { content: nil } } }
       include_examples "Error case", :unprocessable_entity, "投稿内容が空です。"
     end
 
@@ -55,7 +55,7 @@ RSpec.describe "Api::Posts", type: :request do
   end
 
   context "セッションで認証されていない場合" do
-    let(:target_post_data) { { post:{ content: valid_post.content }} }
+    let(:target_post_data) { { post: { content: valid_post.content } } }
     include_examples "Error case", :unauthorized, "認証されていないアクセスです。"
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe "Api::FollowUsers", type: :request do
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
   let!(:another_user) { FactoryBot.create(:user, :another_user) }
   let(:invalid_user_id) { 9999 }
-  let(:json_response){ JSON.parse(response.body) }
+  let(:json_response) { JSON.parse(response.body) }
 
   subject { post "/api/users/#{target_user_id}/unfollow" }
 
