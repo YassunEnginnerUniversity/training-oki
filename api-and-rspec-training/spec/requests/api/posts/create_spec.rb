@@ -7,7 +7,7 @@ RSpec.describe "Api::Posts", type: :request do
   let!(:invalid_user_post_id) { 9999 }
   let(:json_response) { JSON.parse(response.body)}
 
-  subject { post "/api/posts", params: { post: target_post_data }} 
+  subject { post "/api/posts", params: target_post_data } 
 
   shared_examples "Successful case" do
     it "投稿ができる" do
@@ -35,12 +35,12 @@ RSpec.describe "Api::Posts", type: :request do
     end
 
     context "正しいリクエストの場合" do
-      let(:target_post_data) { { content: valid_post.content } }
+      let(:target_post_data) { { post:{ content: valid_post.content }} }
       include_examples "Successful case"
     end
 
     context "contentが空のリクエストの場合" do
-      let(:target_post_data) { { content: nil } }
+      let(:target_post_data) { { post:{ content: nil } }}
       include_examples "Error case", :unprocessable_entity, "投稿内容が空です。"
     end
 
@@ -48,10 +48,14 @@ RSpec.describe "Api::Posts", type: :request do
       let(:target_post_data) { {} }
       include_examples "Error case", :unprocessable_entity, "不正なリクエストであるため、保存できませんでした。"
     end
+    context "不正なキーでリクエストした場合" do
+      let(:target_post_data) { { invalid_key: { content: "Content" } } }
+      include_examples "Error case", :unprocessable_entity, "不正なリクエストであるため、保存できませんでした。"
+    end
   end
 
   context "セッションで認証されていない場合" do
-    let(:target_post_data) { { content: valid_post.content } }
+    let(:target_post_data) { { post:{ content: valid_post.content }} }
     include_examples "Error case", :unauthorized, "認証されていないアクセスです。"
   end
 end
