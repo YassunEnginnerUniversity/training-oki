@@ -4,17 +4,32 @@ RSpec.describe Like, type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:user_post) { FactoryBot.create(:post, user: user) }
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
+  let!(:another_user) { FactoryBot.create(:user, :another_user) }
   let!(:other_user_post) { FactoryBot.create(:post, user: other_user)}
+  let!(:another_user_post) { FactoryBot.create(:post, user: other_user)}
   let!(:invalid_post_id) { 9999 }
   let(:json_response) { JSON.parse(response.body) }
 
   subject { post "/api/posts/#{target_post_id}/like" }
 
   shared_examples "Successful case" do
-    it "いいねできる" do
-      subject
+    it "他の投稿に対していいねができる" do
+      post "/api/posts/#{other_user_post.id}/like"
       expect(response).to have_http_status(:ok)
       expect(json_response["message"]).to eq("いいねしました。")
+    end
+
+    it "自分の投稿に対していいねができる" do
+      post "/api/posts/#{user_post.id}/like"
+      expect(response).to have_http_status(:ok)
+      expect(json_response["message"]).to eq("いいねしました。")
+    end
+
+    it "複数の投稿に対していいねができる" do
+      post "/api/posts/#{other_user_post.id}/like"
+      post "/api/posts/#{another_user_post.id}/like"
+
+      expect(user.likes.count).to eq(2)
     end
   end
 
@@ -31,13 +46,7 @@ RSpec.describe Like, type: :request do
       post "/api/login", params: { username: user.username, password: user.password }
     end
 
-    context "自分の投稿に対していいねができる場合" do
-      let(:target_post_id) { other_user_post.id }
-      include_examples "Successful case"
-    end
-
-    context "自分の投稿に対していいねができる" do
-      let(:target_post_id) { user_post.id }
+    context "正常にいいねができる" do
       include_examples "Successful case"
     end
 
@@ -47,10 +56,10 @@ RSpec.describe Like, type: :request do
     end
 
     context "重複していいねした場合" do
-      let(:target_post_id) { other_user_post.id }  # 他のユーザーの投稿を指定
       before do
-        subject
+        post "/api/posts/#{other_user_post.id}/like"
       end
+      let(:target_post_id) { other_user_post.id }
       include_examples "Error case", :unprocessable_entity, "すでにいいね済みです。"
     end
   end
