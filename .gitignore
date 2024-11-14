@@ -61,3 +61,45 @@
 
 # Ignore master key for decrypting credentials and more.
 /rails-tutorial/sample_app/config/master.key
+
+
+# Next.js
+# dependencies
+/api-training-nextjs/node_modules
+/api-training-nextjs/.pnp
+/api-training-nextjs/.pnp.*
+/api-training-nextjs/.yarn/*
+/api-training-nextjs/!.yarn/patches
+/api-training-nextjs/!.yarn/plugins
+/api-training-nextjs/!.yarn/releases
+/api-training-nextjs/!.yarn/versions
+
+# testing
+/api-training-nextjs/coverage
+
+# next.js
+/api-training-nextjs/.next/
+/api-training-nextjs/out/
+
+# production
+/api-training-nextjs/build
+
+# misc
+/api-training-nextjs/.DS_Store
+/api-training-nextjs/*.pem
+
+# debug
+/api-training-nextjs/npm-debug.log*
+/api-training-nextjs/yarn-debug.log*
+/api-training-nextjs/yarn-error.log*
+
+# env files (can opt-in for committing if needed)
+/api-training-nextjs/.env*
+
+# vercel
+/api-training-nextjs/.vercel
+
+# typescript
+/api-training-nextjs/*.tsbuildinfo
+/api-training-nextjs/next-env.d.ts
+
