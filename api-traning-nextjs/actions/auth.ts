@@ -1,5 +1,6 @@
 'user server'
 import { LoginResponse } from "@/types/api/response/types";
+import { redirect } from "next/navigation";
 
 export const login = async (prevState: LoginResponse, formData: FormData): Promise<LoginResponse> => {
   const username = formData.get("username");
@@ -15,10 +16,12 @@ export const login = async (prevState: LoginResponse, formData: FormData): Promi
     headers: { "Content-Type": "application/json" }
   })
 
-  const jsonResponse = await response.json();
+  // ログインに失敗し、エラーが発生したとき
+  if(!response.ok) {
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  }
 
-  console.log(jsonResponse);
-
-  return jsonResponse;
+  redirect("/")
 };
 

@@ -33,8 +33,8 @@ export default function LoginForm() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col">
-          <Button className="w-full" type="submit">
-            ログイン
+          <Button className="w-full" type="submit" disabled={isPending}>
+            {isPending ? 'ログイン中...' : 'ログイン'}
           </Button>
         </CardFooter>
       </form>
