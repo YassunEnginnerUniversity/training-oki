@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { login } from '@/actions/auth'
 import { useActionState } from 'react'
+import Message from "./Message"
 
 const initialState= {message: ""}
 
@@ -16,6 +17,7 @@ export default function LoginForm() {
       <CardHeader>
         <CardTitle>ログイン</CardTitle>
         <CardDescription>アカウントにログインしてください。</CardDescription>
+        <Message loginResponse={state}/>
       </CardHeader>
       <form action={loginAction}>
         <CardContent>
