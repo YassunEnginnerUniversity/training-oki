@@ -1,7 +1,8 @@
 class Api::SessionsController < ApplicationController
-  def check 
+  def check
     if session[:user_id]
-      render json: { login_in: true }, status: :ok
+      @user = User.find_by(id: session[:user_id])
+      render json: { login_in: true, id: @user.id, username: @user.username }, status: :ok
     else
       render json: { login_in: false}, status: :unauthorized
     end

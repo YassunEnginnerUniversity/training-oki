@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={noto.className}>
-        <PageHeader username="テストユーザー"/>
+        <PageHeader/>
         <main>
           {children}
         </main>
