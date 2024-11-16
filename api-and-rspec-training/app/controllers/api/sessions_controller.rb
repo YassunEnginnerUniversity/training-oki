@@ -1,4 +1,12 @@
 class Api::SessionsController < ApplicationController
+  def check 
+    if session[:user_id]
+      render json: { login_in: true }, status: :ok
+    else
+      render json: { login_in: false}, status: :unauthorized
+    end
+  end
+
   def create
     user = User.find_by(username: params[:username])
 
