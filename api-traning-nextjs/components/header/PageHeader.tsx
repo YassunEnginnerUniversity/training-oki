@@ -1,14 +1,17 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
-import { getUserBySession } from "@/actions/user/getUserBySession"
+import { getUser } from "@/actions/user/getUser"
 
 interface PageHeaderProps {
   username: string
 }
 
 const PageHeader = async () => {
-  const user = await getUserBySession();
-  const username = user.username
+  const user = await getUser();
+
+  console.log(user);
+  
+  
 
   return (
     <header>
@@ -20,7 +23,7 @@ const PageHeader = async () => {
           {user? (
           <>
             <div>
-            <Link href={"/user/" + username.id} className="text-base hover:opacity-70">{ username }</Link>
+            <Link href={"/user/" + user.username.id} className="text-base hover:opacity-70">{ user.username }</Link>
             </div>
             <div>
               <Button className="justify-self-end">ログアウト</Button>
@@ -28,7 +31,7 @@ const PageHeader = async () => {
           </>
           ) : (
             <div>
-              <Button variant="outline" className="justify-self-end">ログイン</Button>
+              <Link href={"/login"} className="justify-self-end">ログイン</Link>
             </div>
           )}
         </div>

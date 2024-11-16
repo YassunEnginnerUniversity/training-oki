@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     get "check_session", to: "sessions#check"
     post "login", to: "sessions#create"
+    get "users/me", to: "users#me"
     resources :users, only: [ :show ] do
       post "follow", to: "follow_users#create"
       post "unfollow", to: "follow_users#destroy"
