@@ -11,7 +11,7 @@ const PageHeader = async () => {
 
   return (
     <header>
-      <div className="flex items-center justify-between px-5 py-7">
+      <div className="flex items-center justify-between px-8 py-7">
         <div className="">
           <h1 className="text-xl">API-Traning-Nextjs</h1>
         </div>
