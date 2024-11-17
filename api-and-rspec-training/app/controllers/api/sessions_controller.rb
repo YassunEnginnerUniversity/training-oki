@@ -18,4 +18,11 @@ class Api::SessionsController < ApplicationController
       render json: { error: "無効なユーザネームかパスワードです。" }, status: :unauthorized
     end
   end
+
+  def destroy
+    reset_session
+    cookies.delete(:_api_and_rspec_training_session)
+    @current_user = nil
+    render json: { message: "ログアウト完了しました。"}, status: :ok
+  end
 end

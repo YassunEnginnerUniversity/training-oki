@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         destination: 'http://localhost:3000/api/:path*', // Rails API サーバー
       },
     ];
-  }
+  },
 };
 
 export default nextConfig;
