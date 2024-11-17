@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include ActionController::Cookies
+
   private
 
   # 認証メソッド（失敗や例外を伴う可能性があるため!をつけている）
