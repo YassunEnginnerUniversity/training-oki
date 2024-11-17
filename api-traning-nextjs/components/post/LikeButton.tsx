@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Heart, MessageCircle, Repeat2 } from 'lucide-react'
 
 interface LikeButtonProps {
-  likesCount: string
+  likesCount: number
 }
 
 const LikeButton = ({likesCount}: LikeButtonProps) => {

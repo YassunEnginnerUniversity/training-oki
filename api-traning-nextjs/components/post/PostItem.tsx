@@ -9,8 +9,13 @@ import {
 } from "@/components/ui/avatar"
 import { MessageCircle } from 'lucide-react'
 import LikeButton from '@/components/post/LikeButton'
+import { Post } from '@/types/post/types'
 
-const PostItem = () => {
+interface PostItemProps {
+  post: Post
+}
+
+const PostItem = ({post}: PostItemProps) => {
   return (
     <Card>
       <CardHeader>
@@ -20,22 +25,22 @@ const PostItem = () => {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div>
-            <Link href={`/user/1`} className="font-semibold hover:underline">
-              testuser
+            <Link href={`/user/${post.user.id}`} className="font-semibold hover:underline">
+              { post.user.username }
             </Link>
-            <p className="text-sm text-gray-500">@testuser</p>
+            <p className="text-sm text-gray-500">@{post.user.username}</p>
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <p>投稿内容投稿内容投稿内容投稿内容投稿内容投稿内容</p>
+        <p className="leading-7">{post.content}</p>
       </CardContent>
       <CardFooter>
         <div className="flex space-x-4 text-gray-500">
-          <LikeButton likesCount={"1"} />
+          <LikeButton likesCount={post.likes_count} />
           <Button variant="ghost" size="sm">
               <MessageCircle className="w-4 h-4 mr-2" />
-              0
+              {post.comments_count}
               </Button>
           <Button variant="ghost" size="sm">
           </Button>

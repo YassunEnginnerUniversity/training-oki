@@ -1,15 +1,20 @@
-import React from 'react'
+import { Suspense } from 'react'
 import PostItem from './PostItem'
+import { getPostsAll } from '@/actions/post/getPostsAll'
+import { Post } from '@/types/post/types';
 
-const CardList = () => {
-  const posts = [1, 2, 3, 4, 5]
+const CardList = async () => {
+  const posts = await getPostsAll();
+  console.log(posts);
 
   return (
-    <div className="space-y-4">
-      {posts.map((post, index) => (
-        <PostItem key={index}/>
-      ))}
-    </div>
+    <Suspense fallback={<div className="mt-6 text-center">読込中です。</div>}>
+      <div className="space-y-4">
+        {posts.map((post:Post, index:number) => (
+          <PostItem post={post} key={index}/>
+        ))}
+      </div>
+    </Suspense>
   )
 }
 
