@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 export const getUser = async () => {
   const cookieStore = await cookies(); //サーバコンポーネントでcookieを取得

@@ -5,14 +5,19 @@ import { Post } from '@/types/post/types';
 
 const CardList = async () => {
   const posts = await getPostsAll();
-  console.log(posts);
 
   return (
-    <Suspense fallback={<div className="mt-6 text-center">読込中です。</div>}>
+    <Suspense fallback={<div className="mt-6 text-center">Loading now</div>}>
       <div className="space-y-4">
-        {posts.map((post:Post, index:number) => (
-          <PostItem post={post} key={index}/>
-        ))}
+        {posts.length > 0? (
+          <>
+            {posts.map((post:Post, index:number) => (
+              <PostItem post={post} key={index}/>
+            ))}
+          </>
+        ): (
+          <p className="text-center mt-4">投稿がありません</p>
+        )}
       </div>
     </Suspense>
   )

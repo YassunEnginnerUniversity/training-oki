@@ -11,7 +11,7 @@ export const getPostsAll = async () => {
     }
   );
   if(!response.ok) {
-    return null;
+    return [];
   }
 
   const posts = await response.json();
