@@ -18,6 +18,7 @@ interface PostItemProps {
 }
 
 const PostItem = ({post}: PostItemProps) => {
+  console.log(post);
   const [postState, setPostState] = useState(post);
 
   const handleUpdateLike = updateLike.bind(null,post.id.toString()) // server actionsに引数を渡すためにbindを使用
@@ -52,7 +53,11 @@ const PostItem = ({post}: PostItemProps) => {
         <div className="flex space-x-4 text-gray-500">
           <form action={updateLikesCount}>
             <Button type="submit" variant="ghost" size="sm">
-              <Heart className="w-4 h-4 mr-2" />
+              {postState.is_liked_by_current_user? (
+                <Heart color="red" fill="red" stroke="none" className="w-4 h-4 mr-2" />
+              ):(
+                <Heart className="w-4 h-4 mr-2" />
+              )}
               { postState.likes_count }
             </Button>
           </form>
