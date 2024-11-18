@@ -12,6 +12,7 @@ import { Heart, MessageCircle, Repeat2 } from 'lucide-react'
 import { Post } from '@/types/post/types'
 import { useState } from 'react'
 import { updateLike } from '@/actions/like/updateLike'
+import { deleteLike } from '@/actions/like/deleteLike'
 
 interface PostItemProps {
   post: Post
@@ -20,15 +21,26 @@ interface PostItemProps {
 const PostItem = ({post}: PostItemProps) => {
   console.log(post);
   const [postState, setPostState] = useState(post);
-
   const handleUpdateLike = updateLike.bind(null,post.id.toString()) // server actionsに引数を渡すためにbindを使用
-  const updateLikesCount = async () => {
-    const newLikesCount = await handleUpdateLike();
-    setPostState((prevState) => ({
-      ...prevState,
-      likes_count: newLikesCount.likes_count
-    }));
-  };
+  const handleDeleteLike = deleteLike.bind(null, post.id.toString())
+
+  const handleLike = async () => {
+    if(postState.is_liked_by_current_user) {
+      const newLikesCount = await handleDeleteLike();
+      setPostState((prevState) => ({
+        ...prevState,
+        likes_count: newLikesCount.likes_count,
+        is_liked_by_current_user: false
+      }));
+    } else {
+      const newLikesCount = await handleUpdateLike();
+      setPostState((prevState) => ({
+        ...prevState,
+        likes_count: newLikesCount.likes_count,
+        is_liked_by_current_user: true
+      }));
+    }
+  }
 
   return (
     <Card>
@@ -51,7 +63,7 @@ const PostItem = ({post}: PostItemProps) => {
       </CardContent>
       <CardFooter>
         <div className="flex space-x-4 text-gray-500">
-          <form action={updateLikesCount}>
+          <form action={handleLike}>
             <Button type="submit" variant="ghost" size="sm">
               {postState.is_liked_by_current_user? (
                 <Heart color="red" fill="red" stroke="none" className="w-4 h-4 mr-2" />
