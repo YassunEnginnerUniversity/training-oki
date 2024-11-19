@@ -9,8 +9,14 @@ class Api::PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 
   def index
-    @posts = Post.all
     @current_user = current_user
+    @user_id = params[:user_id].to_i
+    if @user_id == current_user.id
+      @current_user_posts = current_user.posts
+    else
+      @posts = Post.all
+    end
+    
     render :index
   end
 

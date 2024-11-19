@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Api::Posts", type: :request do
   let!(:user) { FactoryBot.create(:user) }
+  let!(:other_user) { FactoryBot.create(:user, :other_user)}
+
   let!(:other_user_id) { 9999 }
   let!(:other_user_post_id) { 9999 }
   let(:json_response) { JSON.parse(response.body) }
@@ -10,7 +12,7 @@ RSpec.describe "Api::Posts", type: :request do
 
   shared_examples "Successful case" do
     it "すべての投稿を取得できる" do
-      FactoryBot.create_list(:post, 10, user: user) # 投稿10件
+      FactoryBot.create_list(:post, 10, user: user)
       subject
       expect(response).to have_http_status(:ok)
       expect(json_response.length).to eq(10)
@@ -26,6 +28,21 @@ RSpec.describe "Api::Posts", type: :request do
     end
   end
 
+  shared_examples "Successful case that only get currentuser's posts" do
+    it "すべての自分の投稿だけを取得できる" do
+      FactoryBot.create_list(:post, 10, user: user)
+      FactoryBot.create_list(:post, 10, user: other_user)
+
+      get "/api/posts?user_id=#{user.id}"
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response.length).to eq(10)
+      json_response.each do |post|
+        expect(post["content"]).to be_present
+      end
+    end
+  end
+
   shared_examples "Error case" do | status, error_message |
     it "すべての投稿が取得に失敗する" do
       subject
@@ -38,10 +55,12 @@ RSpec.describe "Api::Posts", type: :request do
     before do
       post "/api/login", params: { username: user.username, password: user.password }
     end
-    include_examples "Successful case"
+    it_behaves_like "Successful case"
+
+    it_behaves_like "Successful case that only get currentuser's posts"
   end
 
   context "セッションで認証されていない場合" do
-    include_examples "Error case", :unauthorized, "認証されていないアクセスです。"
+    it_behaves_like "Error case", :unauthorized, "認証されていないアクセスです。"
   end
 end

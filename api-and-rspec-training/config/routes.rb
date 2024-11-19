@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
-    get "check_session", to: "sessions#check"
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
     get "users/me", to: "users#me"
