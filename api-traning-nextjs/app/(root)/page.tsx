@@ -12,13 +12,13 @@ const HomePage = () => {
           <TabsTrigger value="following">Following</TabsTrigger>
         </TabsList>
         <TabsContent value="all">
-          <PostList />
+          <PostList type={"all"}/>
         </TabsContent>
         <TabsContent value="mine">
-          <PostList />
+          <PostList type={"mine"}/>
         </TabsContent>
         <TabsContent value="following">
-          <PostList />
+          <PostList type={"following"}/>
         </TabsContent>
       </Tabs>
     </div>

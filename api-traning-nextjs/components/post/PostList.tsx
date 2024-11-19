@@ -2,9 +2,32 @@ import { Suspense } from 'react'
 import PostItem from './PostItem'
 import { getPostsAll } from '@/actions/post/getPostsAll'
 import { Post } from '@/types/post/types';
+import { getMyPosts } from '@/actions/post/getMyPosts';
+import { getUser } from '@/actions/user/getUser';
 
-const CardList = async () => {
-  const posts = await getPostsAll();
+interface PostListProps {
+  type: string,
+}
+
+const PostList = async ({type}: PostListProps) => {
+  let posts:Post[] = []
+  const user = await getUser();
+
+  switch (type) {
+    case "all":
+      posts = await getPostsAll();
+      break;
+
+    case "mine":
+      posts = await getMyPosts(user.id.toString());
+      break;
+
+    case "following":
+      posts = await getMyPosts(user.id.toString());
+      break;
+    default:
+      break;
+  }
 
   return (
     <Suspense fallback={<div className="mt-6 text-center">Loading now</div>}>
@@ -23,4 +46,4 @@ const CardList = async () => {
   )
 }
 
-export default CardList
+export default PostList
