@@ -11,8 +11,13 @@ class Api::PostsController < ApplicationController
   def index
     @current_user = current_user
     @user_id = params[:user_id].to_i
+    @filterName = params[:filter]
+
     if @user_id == current_user.id
       @current_user_posts = current_user.posts
+    elsif @filterName == "followings" && @user_id == @current_user.id
+      following_ids = current_user.followings
+      @current_user_following_posts = Post.where(user_id: following_ids)
     else
       @posts = Post.all
     end

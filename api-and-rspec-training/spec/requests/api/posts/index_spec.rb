@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe "Api::Posts", type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:user, :other_user)}
-
+  let!(:another_user) { FactoryBot.create(:user, :another_user)}
+  let!(:follow_user) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: other_user.id)}
+  let!(:follow_user02) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: another_user.id)}
+ 
   let!(:other_user_id) { 9999 }
   let!(:other_user_post_id) { 9999 }
   let(:json_response) { JSON.parse(response.body) }
@@ -12,7 +15,7 @@ RSpec.describe "Api::Posts", type: :request do
 
   shared_examples "Successful case" do
     it "すべての投稿を取得できる" do
-      FactoryBot.create_list(:post, 10, user: user)
+      let!(:posts) { FactoryBot.create_list(:post, 10, user: user)}
       subject
       expect(response).to have_http_status(:ok)
       expect(json_response.length).to eq(10)
@@ -30,9 +33,7 @@ RSpec.describe "Api::Posts", type: :request do
 
   shared_examples "Successful case that only get currentuser's posts" do
     it "すべての自分の投稿だけを取得できる" do
-      FactoryBot.create_list(:post, 10, user: user)
-      FactoryBot.create_list(:post, 10, user: other_user)
-
+      let!(:posts) { FactoryBot.create_list(:post, 10, user: user)}
       get "/api/posts?user_id=#{user.id}"
 
       expect(response).to have_http_status(:ok)
@@ -40,6 +41,18 @@ RSpec.describe "Api::Posts", type: :request do
       json_response.each do |post|
         expect(post["content"]).to be_present
       end
+    end
+  end
+
+  shared_examples "Successfull case that only get currentuser's following posts" do
+    it "自分がフォローしている投稿だけを取得できる" do
+      let!(:other_posts) { FactoryBot.create_list(:post, 10, user: other_user)}
+      let!(:another_posts) { FactoryBot.create_list(:post, 10, user: another_user)}
+
+      get "/api/posts?user_id=#{user.id}&filter=following"
+
+      expect(response).to have_http_status(:ok)
+      expect(user.followings.length).to eq(20)
     end
   end
 
@@ -56,7 +69,6 @@ RSpec.describe "Api::Posts", type: :request do
       post "/api/login", params: { username: user.username, password: user.password }
     end
     it_behaves_like "Successful case"
-
     it_behaves_like "Successful case that only get currentuser's posts"
   end
 
