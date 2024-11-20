@@ -6,6 +6,8 @@ RSpec.describe "Api::Posts", type: :request do
   let!(:another_user) { FactoryBot.create(:user, :another_user)}
   let!(:follow_user) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: other_user.id)}
   let!(:follow_user02) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: another_user.id)}
+  let!(:following_ids) { user.followings }
+  let!(:following_posts) { Post.where(user_id: following_ids)}
  
   let!(:other_user_id) { 9999 }
   let!(:other_user_post_id) { 9999 }
@@ -15,7 +17,7 @@ RSpec.describe "Api::Posts", type: :request do
 
   shared_examples "Successful case" do
     it "すべての投稿を取得できる" do
-      let!(:posts) { FactoryBot.create_list(:post, 10, user: user)}
+      FactoryBot.create_list(:post, 10, user: user)
       subject
       expect(response).to have_http_status(:ok)
       expect(json_response.length).to eq(10)
@@ -33,7 +35,7 @@ RSpec.describe "Api::Posts", type: :request do
 
   shared_examples "Successful case that only get currentuser's posts" do
     it "すべての自分の投稿だけを取得できる" do
-      let!(:posts) { FactoryBot.create_list(:post, 10, user: user)}
+     FactoryBot.create_list(:post, 10, user: user)
       get "/api/posts?user_id=#{user.id}"
 
       expect(response).to have_http_status(:ok)
@@ -46,13 +48,20 @@ RSpec.describe "Api::Posts", type: :request do
 
   shared_examples "Successfull case that only get currentuser's following posts" do
     it "自分がフォローしている投稿だけを取得できる" do
-      let!(:other_posts) { FactoryBot.create_list(:post, 10, user: other_user)}
-      let!(:another_posts) { FactoryBot.create_list(:post, 10, user: another_user)}
+      FactoryBot.create_list(:post, 10, user: user)
+      FactoryBot.create_list(:post, 10, user: other_user)
+      FactoryBot.create_list(:post, 10, user: another_user)
+     
 
-      get "/api/posts?user_id=#{user.id}&filter=following"
+      get "/api/posts?user_id=#{user.id}&filter=followings"
 
       expect(response).to have_http_status(:ok)
-      expect(user.followings.length).to eq(20)
+      expect(following_posts.length).to eq(20)
+
+      expect(json_response.length).to eq(20)
+      json_response.each do |post|
+        expect(post["content"]).to be_present
+      end
     end
   end
 
@@ -70,6 +79,7 @@ RSpec.describe "Api::Posts", type: :request do
     end
     it_behaves_like "Successful case"
     it_behaves_like "Successful case that only get currentuser's posts"
+    it_behaves_like "Successfull case that only get currentuser's following posts"
   end
 
   context "セッションで認証されていない場合" do

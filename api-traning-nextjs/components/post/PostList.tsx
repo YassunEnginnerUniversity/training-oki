@@ -4,6 +4,7 @@ import { getPostsAll } from '@/actions/post/getPostsAll'
 import { Post } from '@/types/post/types';
 import { getMyPosts } from '@/actions/post/getMyPosts';
 import { getUser } from '@/actions/user/getUser';
+import { getMyFollowingPosts } from '@/actions/post/getMyFollowingPost';
 
 interface PostListProps {
   type: string,
@@ -17,13 +18,11 @@ const PostList = async ({type}: PostListProps) => {
     case "all":
       posts = await getPostsAll();
       break;
-
     case "mine":
       posts = await getMyPosts(user.id.toString());
       break;
-
     case "following":
-      posts = await getMyPosts(user.id.toString());
+      posts = await getMyFollowingPosts(user.id.toString());
       break;
     default:
       break;
