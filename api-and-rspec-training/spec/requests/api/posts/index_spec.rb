@@ -16,12 +16,12 @@ RSpec.describe "Api::Posts", type: :request do
   subject { get "/api/posts" }
 
   shared_examples "Successful case" do
-    it "すべての投稿を取得できる" do
-      FactoryBot.create_list(:post, 10, user: user)
+    it "10件の投稿を取得することができる" do
+      FactoryBot.create_list(:post, 30, user: user)
       subject
       expect(response).to have_http_status(:ok)
-      expect(json_response.length).to eq(10)
-      json_response.each do |post|
+      expect(json_response["posts"].length).to eq(10)
+      json_response["posts"].each do |post|
         expect(post["content"]).to be_present
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe "Api::Posts", type: :request do
     it "投稿が存在しない場合、空の配列を返す" do
       subject
       expect(response).to have_http_status(:ok)
-      expect(json_response.length).to eq(0)
+      expect(json_response["posts"].length).to eq(0)
     end
   end
 
@@ -51,7 +51,6 @@ RSpec.describe "Api::Posts", type: :request do
       FactoryBot.create_list(:post, 10, user: user)
       FactoryBot.create_list(:post, 10, user: other_user)
       FactoryBot.create_list(:post, 10, user: another_user)
-     
 
       get "/api/posts?user_id=#{user.id}&filter=followings"
 
