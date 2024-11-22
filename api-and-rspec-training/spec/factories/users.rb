@@ -26,5 +26,10 @@ FactoryBot.define do
       username { "another" }
       password { "anotherpassword" }
     end
+
+    trait :guest_user do
+      username { "guestuser" }
+      password { "guestpassword" }
+    end
   end
 end

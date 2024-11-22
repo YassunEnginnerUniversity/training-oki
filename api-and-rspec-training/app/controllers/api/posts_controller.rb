@@ -9,7 +9,23 @@ class Api::PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 
   def index
-    @posts = Post.all
+    @current_user = current_user
+    @user_id = params[:user_id].to_i
+    @filterName = params[:filter]
+
+    page = params[:page] || 0  # 現在のページ
+    per_page = params[:per_page] || 10 # 表示件数
+
+
+    if @filterName == "followings" && @user_id == @current_user.id
+      following_ids = @current_user.followings
+      @current_user_following_posts = Post.where(user_id: following_ids).order(created_at: :desc).page(page).per(per_page)
+    elsif @user_id == @current_user.id
+      @current_user_posts = current_user.posts.order(created_at: :desc).page(page).per(per_page)
+    else
+      @posts = Post.order(created_at: :desc).page(page).per(per_page)
+    end
+    
     render :index
   end
 

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
-    get "check_session", to: "sessions#check"
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
     get "users/me", to: "users#me"
@@ -9,7 +8,7 @@ Rails.application.routes.draw do
       post "unfollow", to: "follow_users#destroy"
     end
     resources :posts, only: [ :index, :show, :create ] do
-      resource :like, only: [ :create ]
+      resource :like, only: [ :create, :destroy ]
       resource :comments, only: [ :create ]
     end
   end

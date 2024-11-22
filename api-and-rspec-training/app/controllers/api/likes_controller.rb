@@ -15,4 +15,16 @@ class Api::LikesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render json: { error: "該当する投稿が見つかりませんでした。" }, status: :not_found
   end
+
+  def destroy
+      @post = Post.find(params[:post_id])
+      like = @post.likes.find_by(user_id: current_user.id)
+
+      if like
+        like.delete
+        render :delete
+      else
+        render json: { error: 'いいねが存在しません。' }, status: :not_found
+      end
+  end
 end
