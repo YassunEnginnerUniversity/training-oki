@@ -1,39 +1,21 @@
-import { Suspense } from 'react'
+"use client"
+
 import PostItem from './PostItem'
-import { getPostsAll } from '@/actions/post/getPostsAll'
 import { Post } from '@/types/post/types';
-import { getMyPosts } from '@/actions/post/getMyPosts';
-import { getUser } from '@/actions/user/getUser';
-import { getMyFollowingPosts } from '@/actions/post/getMyFollowingPost';
 
 interface PostListProps {
   type: string,
+  userId: string,
+  initialPosts: Post[]
 }
 
-const PostList = async ({type}: PostListProps) => {
-  let posts:Post[] = []
-  const user = await getUser();
 
-  switch (type) {
-    case "all":
-      posts = await getPostsAll();
-      break;
-    case "mine":
-      posts = await getMyPosts(user.id.toString());
-      break;
-    case "following":
-      posts = await getMyFollowingPosts(user.id.toString());
-      break;
-    default:
-      break;
-  }
-
+const PostList = ({type,userId,initialPosts}: PostListProps) => {
   return (
-    <Suspense fallback={<div className="mt-6 text-center">Loading now</div>}>
       <div className="space-y-4">
-        {posts.length > 0? (
+        {initialPosts.length > 0? (
           <>
-            {posts.map((post:Post, index:number) => (
+            {initialPosts.map((post:Post, index:number) => (
               <PostItem post={post} key={index}/>
             ))}
           </>
@@ -41,7 +23,6 @@ const PostList = async ({type}: PostListProps) => {
           <p className="text-center mt-4">投稿がありません</p>
         )}
       </div>
-    </Suspense>
   )
 }
 

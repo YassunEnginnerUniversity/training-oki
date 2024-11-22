@@ -1,3 +1,5 @@
+"use server"
+
 import { getCookie } from "@/actions/cookies/getCookies";
 
 export const getMyPosts = async (userId:string) => {

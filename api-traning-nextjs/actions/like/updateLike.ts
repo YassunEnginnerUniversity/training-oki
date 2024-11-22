@@ -14,8 +14,6 @@ export const updateLike = async (postId: string) => {
     credentials: 'include'
   })
   
-  console.log(response);
-  
 
   if(!response.ok) {
     return null

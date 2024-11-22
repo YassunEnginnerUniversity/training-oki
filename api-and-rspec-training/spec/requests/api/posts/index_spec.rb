@@ -21,6 +21,19 @@ RSpec.describe "Api::Posts", type: :request do
       subject
       expect(response).to have_http_status(:ok)
       expect(json_response["posts"].length).to eq(10)
+      expect(json_response["pagenation"]["current_page"]).to eq(1)
+      json_response["posts"].each do |post|
+        expect(post["content"]).to be_present
+      end
+    end
+
+    it "2ページ目の10件の投稿を取得することができる" do
+      FactoryBot.create_list(:post, 30, user: user)
+      get "/api/posts?per_page=10&page=2"
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response["posts"].length).to eq(10)
+      expect(json_response["pagenation"]["current_page"]).to eq(2)
       json_response["posts"].each do |post|
         expect(post["content"]).to be_present
       end

@@ -19,10 +19,9 @@ interface PostItemProps {
 }
 
 const PostItem = ({post}: PostItemProps) => {
-  console.log(post);
   const [postState, setPostState] = useState(post);
-  const handleUpdateLike = updateLike.bind(null,post.id.toString()) // server actionsに引数を渡すためにbindを使用
-  const handleDeleteLike = deleteLike.bind(null, post.id.toString())
+  const handleUpdateLike = updateLike.bind(null,String(post.id)) // server actionsに引数を渡すためにbindを使用
+  const handleDeleteLike = deleteLike.bind(null, String(post.id))
 
   const handleLike = async () => {
     if(postState.is_liked_by_current_user) {
