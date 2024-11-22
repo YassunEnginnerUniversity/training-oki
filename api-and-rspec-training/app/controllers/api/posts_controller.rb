@@ -19,9 +19,9 @@ class Api::PostsController < ApplicationController
 
     if @filterName == "followings" && @user_id == @current_user.id
       following_ids = @current_user.followings
-      @current_user_following_posts = Post.where(user_id: following_ids)
+      @current_user_following_posts = Post.where(user_id: following_ids).order(created_at: :desc).page(page).per(per_page)
     elsif @user_id == @current_user.id
-      @current_user_posts = current_user.posts
+      @current_user_posts = current_user.posts.order(created_at: :desc).page(page).per(per_page)
     else
       @posts = Post.order(created_at: :desc).page(page).per(per_page)
     end

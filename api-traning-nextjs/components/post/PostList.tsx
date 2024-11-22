@@ -4,13 +4,11 @@ import PostItem from './PostItem'
 import { Post } from '@/types/post/types';
 
 interface PostListProps {
-  type: string,
-  userId: string,
   initialPosts: Post[]
 }
 
 
-const PostList = ({type,userId,initialPosts}: PostListProps) => {
+const PostList = ({initialPosts}: PostListProps) => {
   return (
       <div className="space-y-4">
         {initialPosts.length > 0? (

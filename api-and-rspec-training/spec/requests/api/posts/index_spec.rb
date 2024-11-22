@@ -48,12 +48,12 @@ RSpec.describe "Api::Posts", type: :request do
 
   shared_examples "Successful case that only get currentuser's posts" do
     it "すべての自分の投稿だけを取得できる" do
-     FactoryBot.create_list(:post, 10, user: user)
+     FactoryBot.create_list(:post, 20, user: user)
       get "/api/posts?user_id=#{user.id}"
 
       expect(response).to have_http_status(:ok)
-      expect(json_response.length).to eq(10)
-      json_response.each do |post|
+      expect(json_response["posts"].length).to eq(10)
+      json_response["posts"].each do |post|
         expect(post["content"]).to be_present
       end
     end
