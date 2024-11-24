@@ -8,7 +8,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import { Heart, MessageCircle, Repeat2 } from 'lucide-react'
+import { Heart, MessageCircle } from 'lucide-react'
 import { Post } from '@/types/post/types'
 import { useState } from 'react'
 import { updateLike } from '@/actions/like/updateLike'

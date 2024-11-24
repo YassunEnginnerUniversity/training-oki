@@ -27,8 +27,6 @@ export const loadMorePosts = async (page: number, type:string, userId: number) =
   const postsAll:Post[] = response.posts // 現在のページの投稿を10件を取得
   const currentPage:number | null = response.pagenation.current_page  // 現在のページ数を取得
   const totalPage:number | null = response.pagenation.total_pages  // トータルのページ数を取得
-
-  console.log(postsAll);
   
   // 値をリテラル型にし、読み取り専用にする
   return [

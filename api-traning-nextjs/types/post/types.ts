@@ -19,3 +19,13 @@ export interface PostsResponse {
   posts: Post[];
   pagenation: Pagenation;
 }
+
+export interface Comment {
+  id: string;
+  content: string;
+  user: User;
+}
+
+export interface CreatePost {
+  error: string
+}

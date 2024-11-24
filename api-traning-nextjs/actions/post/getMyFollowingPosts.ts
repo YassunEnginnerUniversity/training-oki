@@ -14,8 +14,6 @@ export const getMyFollowingPosts = async (userId:number, page:number, cookies:st
   }
 
   const posts = await response.json();
-
-  console.log(posts);
   
   return posts
 }

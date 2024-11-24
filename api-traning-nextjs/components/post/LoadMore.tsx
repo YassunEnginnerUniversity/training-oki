@@ -23,12 +23,8 @@ const LoadMore = ({children, loadMoreAction, initialPage, type, userId}: LoadMor
   const [loading, setLoading] = useState(false);
   const [allDataLoaded, setAllDataLoaded] = useState(false);
 
-
   // 現在のページ
   const nexPage = useRef<number | undefined>(initialPage + 1)
-
-  console.log(loadMoreNodes);
-  
 
   const loadMore = useCallback(async(abortController?: AbortController) => {
     // ローティングさせる

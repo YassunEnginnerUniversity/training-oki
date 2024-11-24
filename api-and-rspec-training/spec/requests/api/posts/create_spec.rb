@@ -10,14 +10,18 @@ RSpec.describe "Api::Posts", type: :request do
   subject { post "/api/posts", params: target_post_data }
 
   shared_examples "Successful case" do
-    it "投稿ができる" do
+    it "DBに正常に保存される" do
+      expect(Post.last).to have_attributes(
+        id: user_post.id,
+        content: user_post.content
+      )
+    end
+
+    it "正常に投稿ができる" do
       subject
-      expect(response).to have_http_status(:ok)
       expect(valid_post).to be_valid
       expect(response).to have_http_status(:ok)
-
-      expect(json_response).to have_key("id")
-      expect(json_response["content"]).to eq(valid_post.content)
+      expect(json_response["message"]).to eq("新しい投稿を作成しました。")
     end
   end
 
