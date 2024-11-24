@@ -5,13 +5,14 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { CalendarIcon, MapPinIcon, LinkIcon } from 'lucide-react'
+import FollowButton from "@/components/user/FollowButton"
 
 export default async function UserDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>
 }) {
-  const slug = (await params).id
+  const userId = (await params).id
   return (
     <div className="max-w-3xl mx-auto bg-background">
       <div className="h-48 bg-gray-200">
@@ -30,7 +31,7 @@ export default async function UserDetailPage({
               <AvatarFallback>JD</AvatarFallback>
             </Avatar>
           </div>
-          <Button className="rounded-full px-6">フォローする</Button>
+          <FollowButton userId={userId}/>
         </div>
 
         <div className="mt-4">

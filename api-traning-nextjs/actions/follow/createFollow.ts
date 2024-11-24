@@ -2,8 +2,8 @@
 
 import { getCookie } from "@/actions/cookies/getCookies";
 
-export const updateLike = async (postId: string) => {
-  const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/posts/" + postId + "/like";
+export const createFollow = async (userId: string) => {
+  const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/users/" + userId + "/follow";
   const cookies = await getCookie();
   const response = await fetch(endpoint, {
     method: "POST",
@@ -18,6 +18,6 @@ export const updateLike = async (postId: string) => {
     return null
   }
 
-  const like = response.json();
-  return like
+  const follow = response.json();
+  return follow
 }
