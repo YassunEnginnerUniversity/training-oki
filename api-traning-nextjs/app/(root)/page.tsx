@@ -9,19 +9,25 @@ import PostModal from '@/components/post/PostModal';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { loadMorePosts } from '@/utils/loadMorePost';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 const page = 1
 
 const HomePage = async () => {
   const user = await getUser();
+
+  if(!user) {
+    redirect("/login")
+  }
+
   const cookies = await getCookie();
   const initialPostsAll = await getPostsAll(page, cookies)
   const initialMyPosts = await getMyPosts(user.id, page, cookies)
   const initialFollowingPosts = await getMyFollowingPosts(user.id, page, cookies)
 
   return (
-    <div className="mt-10 max-w-[700px] mx-auto px-4 mb-[200px] ">
+    <div className="mt-10 max-w-[850px] mx-auto px-4 mb-[200px] w-full">
       <Tabs defaultValue="all">
         <div className="flex justify-between">
           <TabsList>

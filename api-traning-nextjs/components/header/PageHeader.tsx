@@ -10,7 +10,7 @@ const PageHeader = async () => {
   const user = await getUser();
 
   return (
-    <header>
+    <header className="border-b fixed top-0 left-0 w-full bg-white z-50">
       <div className="flex items-center justify-between px-8 py-7">
         <div className="">
           <h1 className="text-xl">API-Traning-Nextjs</h1>
