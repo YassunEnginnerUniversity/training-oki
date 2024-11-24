@@ -13,8 +13,6 @@ export const getMyPosts = async (userId:number, page:number, cookies:string) => 
   }
 
   const posts = await response.json();
-
-  console.log(posts);
   
   return posts
 }

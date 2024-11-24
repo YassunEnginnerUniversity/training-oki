@@ -45,8 +45,8 @@ class Api::PostsController < ApplicationController
     if @user_post.save
       render :create
     else
-      if @user_post.errors[:content].include?("255字以上は投稿できません")
-        render json: { error: "255字以上は投稿できません" }, status: :unprocessable_entity
+      if @user_post.errors[:content].include?("140字以上は投稿できません")
+        render json: { error: "140字以上は投稿できません" }, status: :unprocessable_entity
       elsif @user_post.errors[:content].include?("内容を入力してください")
         render json: { error: "内容を入力してください" }, status: :unprocessable_entity
       end
