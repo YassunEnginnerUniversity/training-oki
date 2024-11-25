@@ -1,14 +1,13 @@
-import { cookies } from 'next/headers';
+import { getCookie } from '@/actions/cookies/getCookies';
 
-export const getUser = async () => {
-  const cookieStore = await cookies(); //サーバコンポーネントでcookieを取得
-  const session = cookieStore.get('_api_and_rspec_training_session');
-  if (!session) return null;
+export const getUser = async (userId: string) => {
+  const cookie = await getCookie()
+  if (!cookie) return null;
 
-  const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT + '/api/users/me';
+  const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT + `/api/users/${userId}`;
   const response = await fetch(endpoint, {
     headers: {
-      Cookie: cookieStore.toString(),
+      Cookie: cookie
     },
     credentials: 'include',
   });
@@ -17,6 +16,6 @@ export const getUser = async () => {
     return null;
   }
 
-  const responseData = await response.json();
-  return responseData;
+  const user = await response.json();
+  return user;
 };

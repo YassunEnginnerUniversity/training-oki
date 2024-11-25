@@ -6,6 +6,9 @@ import {
 } from "@/components/ui/avatar"
 import { CalendarIcon, MapPinIcon, LinkIcon } from 'lucide-react'
 import FollowButton from "@/components/user/FollowButton"
+import { getUser } from "@/actions/user/getUser"
+import { formatStartDate } from "@/utils/formatStartDate"
+import { getCurrentUser } from "@/actions/user/getCurrentUser"
 
 export default async function UserDetailPage({
   params,
@@ -13,6 +16,11 @@ export default async function UserDetailPage({
   params: Promise<{ id: string }>
 }) {
   const userId = (await params).id
+  const user = await getUser(userId);
+  const currentUser = await getCurrentUser()
+
+  console.log(user.created_at);
+  
   return (
     <div className="max-w-3xl mx-auto bg-background">
       <div className="h-48 bg-gray-200">
@@ -31,16 +39,16 @@ export default async function UserDetailPage({
               <AvatarFallback>JD</AvatarFallback>
             </Avatar>
           </div>
-          <FollowButton userId={userId}/>
+          {currentUser.id !== user.id && (<FollowButton userId={user.id}/>)}
         </div>
 
         <div className="mt-4">
-          <h1 className="text-xl font-bold">John Doe</h1>
-          <p className="text-muted-foreground">@johndoe</p>
+          <h1 className="text-xl font-bold">{user.username}</h1>
+          <p className="text-muted-foreground">@{user.username}</p>
         </div>
 
         <div className="mt-4 text-muted-foreground">
-          <p>Web developer, coffee enthusiast, and amateur photographer.</p>
+          <p>{user.username}です。日常で何気なく思ったことをポストしてます。</p>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
@@ -49,22 +57,18 @@ export default async function UserDetailPage({
             Tokyo, Japan
           </div>
           <div className="flex items-center">
-            <LinkIcon className="w-4 h-4 mr-1" />
-            <a href="https://johndoe.com" className="text-primary">johndoe.com</a>
-          </div>
-          <div className="flex items-center">
             <CalendarIcon className="w-4 h-4 mr-1" />
-            2010年7月からX（旧Twitter）を利用しています
+            {formatStartDate(user.created_at)}から利用しています
           </div>
         </div>
 
         <div className="mt-4 flex gap-4 text-sm">
           <div>
-            <span className="font-bold text-foreground">1,234</span>{" "}
+            <span className="font-bold text-foreground">{user.following_count}</span>{" "}
             <span className="text-muted-foreground">フォロー中</span>
           </div>
           <div>
-            <span className="font-bold text-foreground">5,678</span>{" "}
+            <span className="font-bold text-foreground">{user.followers_count}</span>{" "}
             <span className="text-muted-foreground">フォロワー</span>
           </div>
         </div>

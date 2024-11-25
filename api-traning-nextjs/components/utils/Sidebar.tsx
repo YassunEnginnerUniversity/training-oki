@@ -1,9 +1,14 @@
 import { Home, Bell, Mail, BookmarkIcon, User, Settings } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 export const Sidebar = () => {
   const sidebarItem = [
-    { icon: Home, label: 'ホーム' },
+    { icon: Home, 
+      label: "ホーム",
+      link: "/"
+    },
   ]
 
   return (
@@ -11,14 +16,18 @@ export const Sidebar = () => {
       <div className="p-4">
         <nav className="space-y-2">
           {sidebarItem.map((item) => (
-            <Button
+            <Link
+              href={item.link}
               key={item.label}
-              variant="ghost"
-              className="w-full justify-start text-lg font-medium"
+              className={cn(
+                "flex items-center w-full px-3 py-2 text-lg font-medium rounded-md",
+                "text-gray-700 hover:text-gray-900 hover:bg-gray-100",
+                "transition-colors duration-200"
+              )}
             >
               <item.icon className="mr-4 h-6 w-6" />
               {item.label}
-            </Button>
+            </Link>
           ))}
         </nav>
       </div>

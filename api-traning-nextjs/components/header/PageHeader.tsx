@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getUser } from '@/actions/user/getUser';
+import { getCurrentUser } from '@/actions/user/getCurrentUser';
 import LogoutButton from './LogoutButton';
 
 interface PageHeaderProps {
@@ -7,7 +7,7 @@ interface PageHeaderProps {
 }
 
 const PageHeader = async () => {
-  const user = await getUser();
+  const currentUser = await getCurrentUser();
 
   return (
     <header className="border-b fixed top-0 left-0 w-full bg-white z-50">
@@ -16,14 +16,14 @@ const PageHeader = async () => {
           <h1 className="text-xl">API-Traning-Nextjs</h1>
         </div>
         <div className="flex items-center gap-6">
-          {user ? (
+          {currentUser ? (
             <>
               <div>
                 <Link
-                  href={'/user/' + user.username.id}
+                  href={'/user/' + currentUser.id}
                   className="text-base hover:opacity-70"
                 >
-                  {user.username}
+                  {currentUser.username}
                 </Link>
               </div>
               <div>
