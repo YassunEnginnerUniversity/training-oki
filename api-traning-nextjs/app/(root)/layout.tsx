@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
 import '../globals.css';
 import PageHeader from '@/components/header/PageHeader';
+import { Sidebar } from '@/components/utils/Sidebar';
+
 
 const noto = Noto_Sans_JP({
   weight: ['400', '700'],
@@ -23,8 +25,11 @@ export default function RootLayout({
     <html lang="ja">
       <body className={noto.className}>
         <PageHeader/>
-        <main>
-          {children}
+        <main className="flex pt-[92px]">
+          <Sidebar/>
+          <div className="pl-64 flex-1 ">
+            {children}
+          </div>
         </main>
       </body>
     </html>

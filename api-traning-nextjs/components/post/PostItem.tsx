@@ -46,8 +46,8 @@ const PostItem = ({post}: PostItemProps) => {
       <CardHeader>
         <div className="flex items-center space-x-4">
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src="https://github.com/shadcn.png" alt={postState.user.username} />
+            <AvatarFallback>{postState.user.username}</AvatarFallback>
           </Avatar>
           <div>
             <Link href={`/user/${postState.user.id}`} className="font-semibold hover:underline">
