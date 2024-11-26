@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { loadMorePosts } from '@/utils/loadMorePost';
 import { redirect } from 'next/navigation';
 import React from 'react';
+import { createPost } from '@/actions/post/createPost';
 
 const page = 1
 

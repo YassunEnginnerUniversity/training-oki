@@ -1,12 +1,13 @@
 "use client"
 import { deleteLike } from "@/actions/like/deleteLike"
 import { updateLike } from "@/actions/like/updateLike"
+import CommentModal from "@/components/comment/CommentModal"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { PostDetailType } from "@/types/post/types"
 import { formatDate } from "@/utils/formatDate"
-import { Heart, MessageCircle } from 'lucide-react'
+import { Heart } from 'lucide-react'
 import { useState } from "react"
 
 interface PostDetailProps {
@@ -65,10 +66,7 @@ const PostDetail = ({post}:PostDetailProps) => {
             { postState.likes_count }
           </Button>
         </form>
-        <Button variant="ghost" size="sm" aria-label={`コメント ${postState.comments.length}件`}>
-          <MessageCircle className="w-5 h-5 mr-2" />
-          <span aria-hidden="true">{postState.comments.length}</span>
-        </Button>
+        <CommentModal commentCount={post.comments.length.toString()} postId={post.id}/>
       </CardFooter>
     </Card>
   )

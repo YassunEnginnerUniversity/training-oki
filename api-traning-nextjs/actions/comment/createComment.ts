@@ -1,11 +1,12 @@
 "user server"
-import { CreatePost } from "@/types/post/types"
+import { CreateComment } from "@/types/comment/type";
 import { revalidatePath } from "next/cache";
 import { redirect } from 'next/navigation';
 
-export const createPost = async (prevState: CreatePost, formData: FormData): Promise<CreatePost> => {
+export const createComment = async (prevState: CreateComment, formData: FormData): Promise<CreateComment> => {
   const content = formData.get("content");
-  const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT + '/api/posts';
+  const postId = formData.get("postId");
+  const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT + `/api/posts/${postId}/comments`;
   const data = { content }
 
   const response = await fetch(endpoint, {
@@ -22,5 +23,5 @@ export const createPost = async (prevState: CreatePost, formData: FormData): Pro
     return error
   }
   
-  redirect("/")
+  redirect(`/post/${postId}`)
 }
