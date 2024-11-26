@@ -9,6 +9,17 @@ export interface Post {
   comments_count: number
 }
 
+export interface PostDetailType {
+  id: string
+  content: string
+  created_at: string
+  updated_at: string
+  user: User
+  likes_count: number
+  is_liked_by_current_user: boolean
+  comments:Comment[];
+}
+
 export interface Pagenation {
   current_page: number
   total_pages:number

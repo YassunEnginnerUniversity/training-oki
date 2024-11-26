@@ -7,14 +7,14 @@ import {
 import { CalendarIcon, MapPinIcon, LinkIcon } from 'lucide-react'
 import FollowButton from "@/components/user/FollowButton"
 import { getUser } from "@/actions/user/getUser"
-import { formatStartDate } from "@/utils/formatStartDate"
+import { formatDate } from "@/utils/formatDate"
 import { getCurrentUser } from "@/actions/user/getCurrentUser"
 
-export default async function UserDetailPage({
+const UserDetailPage = async ({
   params,
 }: {
   params: Promise<{ id: string }>
-}) {
+}) =>  {
   const userId = (await params).id
   const user = await getUser(userId);
   const currentUser = await getCurrentUser()
@@ -58,7 +58,7 @@ export default async function UserDetailPage({
           </div>
           <div className="flex items-center">
             <CalendarIcon className="w-4 h-4 mr-1" />
-            {formatStartDate(user.created_at)}から利用しています
+            {formatDate(user.created_at)}から利用しています
           </div>
         </div>
 
@@ -76,3 +76,5 @@ export default async function UserDetailPage({
     </div>
   )
 }
+
+export default UserDetailPage

@@ -13,6 +13,7 @@ import { Post } from '@/types/post/types'
 import { useState } from 'react'
 import { updateLike } from '@/actions/like/updateLike'
 import { deleteLike } from '@/actions/like/deleteLike'
+import { useRouter } from 'next/navigation'
 
 interface PostItemProps {
   post: Post
@@ -20,6 +21,13 @@ interface PostItemProps {
 
 const PostItem = ({post}: PostItemProps) => {
   const [postState, setPostState] = useState(post);
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    router.push(`/post/${postState.id}`);
+  };
+
+
   const handleUpdateLike = updateLike.bind(null,String(post.id)) // server actionsに引数を渡すためにbindを使用
   const handleDeleteLike = deleteLike.bind(null, String(post.id))
 
@@ -42,7 +50,7 @@ const PostItem = ({post}: PostItemProps) => {
   }
 
   return (
-    <Card>
+    <Card onClick={handleCardClick} className="cursor-pointer">
       <CardHeader>
         <div className="flex items-center space-x-4">
           <Avatar>
