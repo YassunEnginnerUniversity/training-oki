@@ -38,9 +38,9 @@ RSpec.describe Comment, type: :model do
       expect(invalid_comment.errors[:content]).to include("内容を入力してください")
     end
 
-    it "contentが140字以上の場合" do
+    it "contentが120字以上の場合" do
       expect(invalid_comment_over_content).not_to be_valid
-      expect(invalid_comment_over_content.errors[:content]).to include("140字以上はコメントできません")
+      expect(invalid_comment_over_content.errors[:content]).to include("120字以上はコメントできません")
     end
   end
 

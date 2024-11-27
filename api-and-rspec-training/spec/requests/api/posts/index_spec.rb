@@ -70,8 +70,8 @@ RSpec.describe "Api::Posts", type: :request do
       expect(response).to have_http_status(:ok)
       expect(following_posts.length).to eq(20)
 
-      expect(json_response.length).to eq(20)
-      json_response.each do |post|
+      expect(json_response["posts"].length).to eq(10)
+      json_response["posts"].each do |post|
         expect(post["content"]).to be_present
       end
     end

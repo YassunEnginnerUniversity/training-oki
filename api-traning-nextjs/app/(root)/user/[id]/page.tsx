@@ -1,15 +1,15 @@
-import { Button } from "@/components/ui/button"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import { CalendarIcon, MapPinIcon, LinkIcon } from 'lucide-react'
+import { CalendarIcon, MapPinIcon } from 'lucide-react'
 import FollowButton from "@/components/user/FollowButton"
 import { getUser } from "@/actions/user/getUser"
 import { formatDate } from "@/utils/formatDate"
 import { getCurrentUser } from "@/actions/user/getCurrentUser"
 import { generatePokemonIcon } from "@/utils/generatePokemonIcon"
+import { redirect } from "next/navigation"
 
 const UserDetailPage = async ({
   params,
@@ -20,7 +20,10 @@ const UserDetailPage = async ({
   const user = await getUser(userId);
   const currentUser = await getCurrentUser()
 
-  console.log(generatePokemonIcon(user.username));
+  if(!currentUser) {
+    redirect("/login")
+  }
+  console.log(user);
   
   return (
     <div className="max-w-3xl mx-auto bg-background">

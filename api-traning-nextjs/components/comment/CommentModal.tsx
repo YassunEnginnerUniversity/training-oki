@@ -57,8 +57,8 @@ const CommentModal = ({commentCount, postId}:CommentModalProps) => {
           />
           <Input name="postId" value={postId} type="hidden"></Input>
           <div className="flex justify-between items-center mt-2">
-            <span className={postValue.length > 140 ? "text-red-500" : "text-gray-500"}>
-              {postValue.length}/140
+            <span className={postValue.length > 120 ? "text-red-500" : "text-gray-500"}>
+              {postValue.length}/120
             </span>
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
