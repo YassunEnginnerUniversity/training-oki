@@ -9,6 +9,7 @@ import FollowButton from "@/components/user/FollowButton"
 import { getUser } from "@/actions/user/getUser"
 import { formatDate } from "@/utils/formatDate"
 import { getCurrentUser } from "@/actions/user/getCurrentUser"
+import { generatePokemonIcon } from "@/utils/generatePokemonIcon"
 
 const UserDetailPage = async ({
   params,
@@ -19,7 +20,7 @@ const UserDetailPage = async ({
   const user = await getUser(userId);
   const currentUser = await getCurrentUser()
 
-  console.log(user.created_at);
+  console.log(generatePokemonIcon(user.username));
   
   return (
     <div className="max-w-3xl mx-auto bg-background">
@@ -34,9 +35,9 @@ const UserDetailPage = async ({
       <div className="px-4 py-3 sm:px-6">
         <div className="flex justify-between items-start">
           <div className="-mt-16">
-            <Avatar className="w-32 h-32 border-4 border-background">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@johndoe" />
-              <AvatarFallback>JD</AvatarFallback>
+            <Avatar className="w-32 h-32 border-4 border-background bg-gray-100">
+              <AvatarImage src={`/pokemon/${generatePokemonIcon(user.username)}.png`} alt={user.username} />
+              <AvatarFallback>{user.username}</AvatarFallback>
             </Avatar>
           </div>
           {currentUser.id !== user.id && (<FollowButton userId={user.id}/>)}

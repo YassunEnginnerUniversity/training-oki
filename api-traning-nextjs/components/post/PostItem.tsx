@@ -14,6 +14,7 @@ import { useState } from 'react'
 import { updateLike } from '@/actions/like/updateLike'
 import { deleteLike } from '@/actions/like/deleteLike'
 import { useRouter } from 'next/navigation'
+import { generatePokemonIcon } from '@/utils/generatePokemonIcon'
 
 interface PostItemProps {
   post: Post
@@ -54,10 +55,10 @@ const PostItem = ({post}: PostItemProps) => {
       <CardHeader>
         <div className="flex items-center space-x-4">
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt={postState.user.username} />
-            <AvatarFallback>{postState.user.username}</AvatarFallback>
+            <AvatarImage src={`/pokemon/${generatePokemonIcon(post.user.username)}.png`} alt={post.user.username} />
+            <AvatarFallback>{post.user.username}</AvatarFallback>
           </Avatar>
-          <div>
+          <div onClick={(e) => e.stopPropagation()} >
             <Link href={`/user/${postState.user.id}`} className="font-semibold hover:underline">
               { postState.user.username }
             </Link>
@@ -70,7 +71,7 @@ const PostItem = ({post}: PostItemProps) => {
       </CardContent>
       <CardFooter>
         <div className="flex space-x-4 text-gray-500">
-          <form action={handleLike}>
+          <form action={handleLike} onClick={(e) => e.stopPropagation()} >
             <Button type="submit" variant="ghost" size="sm">
               {postState.is_liked_by_current_user? (
                 <Heart color="red" fill="red" stroke="none" className="w-4 h-4 mr-2" />
@@ -83,8 +84,6 @@ const PostItem = ({post}: PostItemProps) => {
           <Button variant="ghost" size="sm">
             <MessageCircle className="w-4 h-4 mr-2" />
             {postState.comments_count}
-            </Button>
-          <Button variant="ghost" size="sm">
           </Button>
         </div>
       </CardFooter>

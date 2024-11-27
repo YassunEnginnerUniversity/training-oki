@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { PostDetailType } from "@/types/post/types"
 import { formatDate } from "@/utils/formatDate"
+import { generatePokemonIcon } from "@/utils/generatePokemonIcon"
 import { Heart } from 'lucide-react'
+import Link from "next/link"
 import { useState } from "react"
 
 interface PostDetailProps {
@@ -41,11 +43,13 @@ const PostDetail = ({post}:PostDetailProps) => {
     <Card className="mb-8">
       <CardHeader className="flex flex-row items-center gap-4">
         <Avatar>
-          <AvatarImage src={`https://github.com/shadcn.png`} alt={postState.user.username} />
+          <AvatarImage src={`/pokemon/${generatePokemonIcon(postState.user.username)}.png`} alt={postState.user.username} />
           <AvatarFallback>{postState.user.username}</AvatarFallback>
         </Avatar>
         <div>
-          <h2 className="text-lg font-bold">{postState.user.username}</h2>
+          <Link href={`/user/${postState.user.id}`} className="font-semibold hover:underline">
+            { postState.user.username }
+          </Link>
           <p className="text-sm text-muted-foreground">@{postState.user.username}</p>
         </div>
       </CardHeader>
