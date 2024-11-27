@@ -26,7 +26,7 @@ FactoryBot.define do
     post { nil }
 
     trait :comment_over_content do
-      content { Faker::Lorem.characters(number: 256) }
+      content { Faker::Lorem.characters(number: 141) }
     end
   end
 end
