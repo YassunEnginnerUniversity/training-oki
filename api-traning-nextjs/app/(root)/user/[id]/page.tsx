@@ -63,13 +63,17 @@ const UserDetailPage = async ({
         </div>
 
         <div className="mt-4 flex gap-4 text-sm">
-          <div>
-            <span className="font-bold text-foreground">{user.following_count}</span>{" "}
+          <div className="flex gap-1">
+            <span className="font-bold text-foreground">{user.following_count}</span>
             <span className="text-muted-foreground">フォロー中</span>
           </div>
-          <div>
-            <span className="font-bold text-foreground">{user.followers_count}</span>{" "}
+          <div className="flex gap-1">
+            <span className="font-bold text-foreground">{user.followers_count}</span>
             <span className="text-muted-foreground">フォロワー</span>
+          </div>
+          <div className="flex gap-1">
+            <span className="font-bold text-foreground">{user.posts.length}</span>
+            <span className="text-muted-foreground">ポスト</span>
           </div>
         </div>
       </div>

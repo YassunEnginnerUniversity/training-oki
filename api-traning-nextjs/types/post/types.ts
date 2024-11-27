@@ -31,9 +31,11 @@ export interface PostsResponse {
   pagenation: Pagenation;
 }
 
-export interface Comment {
+export interface CommentType {
   id: string;
   content: string;
+  created_at: string;
+  updated_at: string;
   user: User;
 }
 
