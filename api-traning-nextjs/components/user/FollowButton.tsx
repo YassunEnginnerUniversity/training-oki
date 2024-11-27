@@ -7,10 +7,11 @@ import { useState } from "react"
 
 interface followButtonProps {
   userId: string
+  isFollowed: boolean
 }
 
-const FollowButton = ({userId}: followButtonProps) => {
-  const [isFollow, setisFollow] = useState(false);
+const FollowButton = ({userId, isFollowed}: followButtonProps) => {
+  const [isFollow, setisFollow] = useState(isFollowed);
   const handleCreateFollow = createFollow.bind(null,String(userId)) // server actionsに引数を渡すためにbindを使用
   const handleCreateUnfollow = createUnfollow.bind(null,String(userId))
 

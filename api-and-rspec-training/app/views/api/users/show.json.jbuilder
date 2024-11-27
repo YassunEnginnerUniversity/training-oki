@@ -9,3 +9,4 @@ json.likes @user.likes do |like|
 end
 json.followers_count @user.followers.count
 json.following_count @user.followings.count
+json.is_followed_by_current_user @user.followers.exists?(id: @current_user.id)

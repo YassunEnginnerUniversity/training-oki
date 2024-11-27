@@ -19,10 +19,10 @@
 #
 FactoryBot.define do
   factory :post do
-    content { Faker::Lorem.paragraph(sentence_count: 10) }
+    content { Faker::Lorem.paragraph(sentence_count: 10)[0...120] }
 
     trait :post_over_content do
-      content { Faker::Lorem.characters(number: 256) }
+      content { Faker::Lorem.characters(number: 121) }
     end
   end
 end
