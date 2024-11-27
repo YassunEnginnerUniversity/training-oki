@@ -6,20 +6,39 @@ import { getCurrentUser } from '@/actions/user/getCurrentUser';
 import LoadMore from '@/components/post/LoadMore';
 import PostList from '@/components/post/PostList';
 import PostModal from '@/components/post/PostModal';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
 
 import { loadMorePosts } from '@/utils/loadMorePost';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import { createPost } from '@/actions/post/createPost';
+import TabPostList from '@/components/post/TabPostList';
 
 const page = 1
 
-const HomePage = async () => {
+const HomePage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) => {
   const currentUser = await getCurrentUser();
+  let defaultValue = "all"
+  const filters = (await searchParams).tab
 
   if(!currentUser) {
     redirect("/login")
+  }
+  console.log(filters);
+  
+  switch (filters) {
+    case "mine":
+      defaultValue = "mine"
+      break;
+    case "following":
+      defaultValue = "following"
+      break;
+    default:
+      break;
   }
 
   const cookies = await getCookie();
@@ -29,13 +48,9 @@ const HomePage = async () => {
 
   return (
     <div className="mt-10 max-w-[850px] mx-auto px-4 mb-[200px] w-full">
-      <Tabs defaultValue="all">
+      <Tabs defaultValue={defaultValue}>
         <div className="flex justify-between">
-          <TabsList>
-            <TabsTrigger value="all">All Posts</TabsTrigger>
-            <TabsTrigger value="mine">My Posts</TabsTrigger>
-            <TabsTrigger value="following">Following</TabsTrigger>
-          </TabsList>
+          <TabPostList/>
           <PostModal/>
         </div>
         <TabsContent value="all">
