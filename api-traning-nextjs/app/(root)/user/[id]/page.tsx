@@ -43,7 +43,7 @@ const UserDetailPage = async ({
               <AvatarFallback>{user.username}</AvatarFallback>
             </Avatar>
           </div>
-          {currentUser.id !== user.id && (<FollowButton userId={user.id}/>)}
+          {currentUser.id !== user.id && (<FollowButton userId={user.id} isFollowed={user.is_followed_by_current_user}/>)}
         </div>
 
         <div className="mt-4">
