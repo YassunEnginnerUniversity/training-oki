@@ -1,15 +1,15 @@
-import { Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react';
 
 interface LoadingProps {
-  size?: number
-  color?: string
-  text?: string
+  size?: number;
+  color?: string;
+  text?: string;
 }
 
-export default function Loading({ 
-  size = 24, 
-  color = "text-gray-400", // Changed to a gray color
-  text = "Loading..." 
+export default function Loading({
+  size = 24,
+  color = 'text-gray-400', // Changed to a gray color
+  text = 'Loading...',
 }: LoadingProps) {
   return (
     <div className="flex flex-col items-center justify-center mt-6">
@@ -18,5 +18,5 @@ export default function Loading({
         {text}
       </p>
     </div>
-  )
+  );
 }

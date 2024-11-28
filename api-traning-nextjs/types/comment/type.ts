@@ -1,3 +1,3 @@
 export interface CreateComment {
-  error: string
+  error: string;
 }

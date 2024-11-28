@@ -1,26 +1,27 @@
-"use client"
+'use client';
 
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import Link from 'next/link'
-import { Button } from "@/components/ui/button"
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
-import { Heart, MessageCircle } from 'lucide-react'
-import { Post } from '@/types/post/types'
-import { useState } from 'react'
-import { updateLike } from '@/actions/like/updateLike'
-import { deleteLike } from '@/actions/like/deleteLike'
-import { useRouter } from 'next/navigation'
-import { generatePokemonIcon } from '@/utils/generatePokemonIcon'
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Heart, MessageCircle } from 'lucide-react';
+import { Post } from '@/types/post/types';
+import { useState } from 'react';
+import { updateLike } from '@/actions/like/updateLike';
+import { deleteLike } from '@/actions/like/deleteLike';
+import { useRouter } from 'next/navigation';
+import { generatePokemonIcon } from '@/utils/generatePokemonIcon';
 
 interface PostItemProps {
-  post: Post
+  post: Post;
 }
 
-const PostItem = ({post}: PostItemProps) => {
+const PostItem = ({ post }: PostItemProps) => {
   const [postState, setPostState] = useState(post);
   const router = useRouter();
 
@@ -28,39 +29,44 @@ const PostItem = ({post}: PostItemProps) => {
     router.push(`/post/${postState.id}`);
   };
 
-
-  const handleUpdateLike = updateLike.bind(null,String(post.id)) // server actionsに引数を渡すためにbindを使用
-  const handleDeleteLike = deleteLike.bind(null, String(post.id))
+  const handleUpdateLike = updateLike.bind(null, String(post.id)); // server actionsに引数を渡すためにbindを使用
+  const handleDeleteLike = deleteLike.bind(null, String(post.id));
 
   const handleLike = async () => {
-    if(postState.is_liked_by_current_user) {
+    if (postState.is_liked_by_current_user) {
       const newLikesCount = await handleDeleteLike();
       setPostState((prevState) => ({
         ...prevState,
         likes_count: newLikesCount.likes_count,
-        is_liked_by_current_user: false
+        is_liked_by_current_user: false,
       }));
     } else {
       const newLikesCount = await handleUpdateLike();
       setPostState((prevState) => ({
         ...prevState,
         likes_count: newLikesCount.likes_count,
-        is_liked_by_current_user: true
+        is_liked_by_current_user: true,
       }));
     }
-  }
+  };
 
   return (
     <Card onClick={handleCardClick} className="cursor-pointer">
       <CardHeader>
         <div className="flex items-center space-x-4">
           <Avatar>
-            <AvatarImage src={`/pokemon/${generatePokemonIcon(post.user.username)}.png`} alt={post.user.username} />
+            <AvatarImage
+              src={`/pokemon/${generatePokemonIcon(post.user.username)}.png`}
+              alt={post.user.username}
+            />
             <AvatarFallback>{post.user.username}</AvatarFallback>
           </Avatar>
-          <div onClick={(e) => e.stopPropagation()} >
-            <Link href={`/user/${postState.user.id}`} className="font-semibold hover:underline">
-              { postState.user.username }
+          <div onClick={(e) => e.stopPropagation()}>
+            <Link
+              href={`/user/${postState.user.id}`}
+              className="font-semibold hover:underline"
+            >
+              {postState.user.username}
             </Link>
             <p className="text-sm text-gray-500">@{postState.user.username}</p>
           </div>
@@ -71,14 +77,19 @@ const PostItem = ({post}: PostItemProps) => {
       </CardContent>
       <CardFooter>
         <div className="flex space-x-4 text-gray-500">
-          <form action={handleLike} onClick={(e) => e.stopPropagation()} >
+          <form action={handleLike} onClick={(e) => e.stopPropagation()}>
             <Button type="submit" variant="ghost" size="sm">
-              {postState.is_liked_by_current_user? (
-                <Heart color="red" fill="red" stroke="none" className="w-4 h-4 mr-2" />
-              ):(
+              {postState.is_liked_by_current_user ? (
+                <Heart
+                  color="red"
+                  fill="red"
+                  stroke="none"
+                  className="w-4 h-4 mr-2"
+                />
+              ) : (
                 <Heart className="w-4 h-4 mr-2" />
               )}
-              { postState.likes_count }
+              {postState.likes_count}
             </Button>
           </form>
           <Button variant="ghost" size="sm">
@@ -88,7 +99,7 @@ const PostItem = ({post}: PostItemProps) => {
         </div>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
-export default PostItem
+export default PostItem;

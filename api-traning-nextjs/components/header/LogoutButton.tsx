@@ -16,7 +16,11 @@ const LogoutButton = () => {
   };
 
   return (
-    <Button variant="secondary" onClick={handleLogout} className="justify-self-end">
+    <Button
+      variant="secondary"
+      onClick={handleLogout}
+      className="justify-self-end"
+    >
       ログアウト
     </Button>
   );

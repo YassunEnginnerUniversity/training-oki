@@ -1,12 +1,15 @@
-"user server"
-import { CreatePost } from "@/types/post/types"
-import { revalidatePath } from "next/cache";
+'user server';
+import { CreatePost } from '@/types/post/types';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-export const createPost = async (prevState: CreatePost, formData: FormData): Promise<CreatePost> => {
-  const content = formData.get("content");
+export const createPost = async (
+  prevState: CreatePost,
+  formData: FormData,
+): Promise<CreatePost> => {
+  const content = formData.get('content');
   const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT + '/api/posts';
-  const data = { content }
+  const data = { content };
 
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -17,10 +20,10 @@ export const createPost = async (prevState: CreatePost, formData: FormData): Pro
     body: JSON.stringify(data),
   });
 
-  if(!response.ok) {
+  if (!response.ok) {
     const error = await response.json();
-    return error
+    return error;
   }
-  
-  redirect("/")
-}
+
+  redirect('/');
+};

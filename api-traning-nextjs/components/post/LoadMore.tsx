@@ -1,32 +1,37 @@
-"use client"
+'use client';
 
-import Loading from "@/components/utils/Loading";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react"
+import Loading from '@/components/utils/Loading';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
 type LoadMoreAction = (
   page: number,
   type: string,
-  userId: number
-) => Promise<readonly [JSX.Element[], number | null, number | null] > ;
+  userId: number,
+) => Promise<readonly [JSX.Element[], number | null, number | null]>;
 
 interface LoadMoreProps {
-  children: ReactNode
-  loadMoreAction: LoadMoreAction
-  initialPage: number,
-  type: string,
-  userId: number
+  children: ReactNode;
+  loadMoreAction: LoadMoreAction;
+  initialPage: number;
+  type: string;
+  userId: number;
 }
 
-const LoadMore = ({children, loadMoreAction, initialPage, type, userId}: LoadMoreProps) => {
+const LoadMore = ({
+  children,
+  loadMoreAction,
+  initialPage,
+  type,
+  userId,
+}: LoadMoreProps) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [loadMoreNodes, setLoadMoreNodes] = useState<JSX.Element[]>([]);
   const [loading, setLoading] = useState(false);
-  const [allDataLoaded, setAllDataLoaded] = useState(false);
 
   // 現在のページ
-  const nexPage = useRef<number | undefined>(initialPage + 1)
+  const nexPage = useRef<number | undefined>(initialPage + 1);
 
-  const loadMore = useCallback(async(abortController?: AbortController) => {
+  const loadMore = useCallback(async () => {
     // ローティングさせる
     setLoading(true);
     setTimeout(async () => {
@@ -36,33 +41,33 @@ const LoadMore = ({children, loadMoreAction, initialPage, type, userId}: LoadMor
       }
 
       loadMoreAction(nexPage.current, type, userId)
-      .then(([node, currentPage, totalPage]) => {
-        if(currentPage !== null && totalPage !== null && currentPage > totalPage) {
-          setLoading(false);
-          return;
-        }
+        .then(([node, currentPage, totalPage]) => {
+          if (
+            currentPage !== null &&
+            totalPage !== null &&
+            currentPage > totalPage
+          ) {
+            setLoading(false);
+            return;
+          }
 
-        // 全てのデータを取得したかどうかのチェック
-        // if (node.length < 10) {
-        //   setAllDataLoaded(true);
-        // }
-        // 新しいデータを追加する
-        setLoadMoreNodes((prev) => [...prev, ...node]);
+          // 新しいデータを追加する
+          setLoadMoreNodes((prev) => [...prev, ...node]);
 
-        if (currentPage === null) {
-          nexPage.current = undefined;
-          return;
-        }
+          if (currentPage === null) {
+            nexPage.current = undefined;
+            return;
+          }
 
-        // 次のページの値をいれるためプラス1している
-        nexPage.current = currentPage + 1
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-      .finally(() => setLoading(false));
+          // 次のページの値をいれるためプラス1している
+          nexPage.current = currentPage + 1;
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => setLoading(false));
     }, 800);
-  },[loadMoreAction])
+  }, [loadMoreAction, type, userId]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -84,22 +89,20 @@ const LoadMore = ({children, loadMoreAction, initialPage, type, userId}: LoadMor
       if (element) {
         observer.unobserve(element);
       }
-    }
-  }, [loadMore])
+    };
+  }, [loadMore]);
 
   return (
     <>
-    <div className="space-y-4">
-      {children}
-      {loadMoreNodes}
-    </div>
-    {!allDataLoaded && (
-      <button className='w-full flex justify-center items-center' ref={ref}>
+      <div className="space-y-4">
+        {children}
+        {loadMoreNodes}
+      </div>
+      <button className="w-full flex justify-center items-center" ref={ref}>
         {loading && <Loading size={12} />}
       </button>
-    )}
     </>
-  )
-}
+  );
+};
 
-export default LoadMore
+export default LoadMore;

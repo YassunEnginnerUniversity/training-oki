@@ -4,7 +4,6 @@ import '../globals.css';
 import PageHeader from '@/components/header/PageHeader';
 import { Sidebar } from '@/components/utils/Sidebar';
 
-
 const noto = Noto_Sans_JP({
   weight: ['400', '700'],
   style: 'normal',
@@ -24,12 +23,10 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={noto.className}>
-        <PageHeader/>
+        <PageHeader />
         <main className="flex pt-[92px]">
-          <Sidebar/>
-          <div className="pl-64 flex-1 ">
-            {children}
-          </div>
+          <Sidebar />
+          <div className="pl-64 flex-1 ">{children}</div>
         </main>
       </body>
     </html>

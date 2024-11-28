@@ -2,10 +2,6 @@ import Link from 'next/link';
 import { getCurrentUser } from '@/actions/user/getCurrentUser';
 import LogoutButton from './LogoutButton';
 
-interface PageHeaderProps {
-  username: string;
-}
-
 const PageHeader = async () => {
   const currentUser = await getCurrentUser();
 
