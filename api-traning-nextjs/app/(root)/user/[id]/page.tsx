@@ -28,6 +28,8 @@ const UserDetailPage = async ({
           src="/user_kv.jpg"
           alt="Header"
           className="w-full h-full object-cover"
+          width={800}
+          height={400}
         />
       </div>
 
