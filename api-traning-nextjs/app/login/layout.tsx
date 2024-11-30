@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
 import '../globals.css';
-import PageHeader from '@/components/header/PageHeader';
 
 const noto = Noto_Sans_JP({
   weight: ['400', '700'],
@@ -22,9 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={noto.className}>
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

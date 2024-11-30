@@ -1,72 +1,60 @@
 import { getCookie } from '@/actions/cookies/getCookies';
-import { getMyFollowingPosts } from '@/actions/post/getMyFollowingPosts';
-import { getMyPosts } from '@/actions/post/getMyPosts';
-import { getPostsAll } from '@/actions/post/getPostsAll';
 import { getCurrentUser } from '@/actions/user/getCurrentUser';
-import LoadMore from '@/components/post/LoadMore';
 import PostList from '@/components/post/PostList';
 import PostModal from '@/components/post/PostModal';
-import { Tabs, TabsContent } from "@/components/ui/tabs"
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 
-import { loadMorePosts } from '@/utils/loadMorePost';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import { createPost } from '@/actions/post/createPost';
 import TabPostList from '@/components/post/TabPostList';
-
-const page = 1
+import { getPosts } from '@/actions/post/getPosts';
+import LoadMorePostList from '@/components/post/LoadMorePostList';
 
 const HomePage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const currentUser = await getCurrentUser();
-  let defaultValue = "all"
-  const filters = (await searchParams).tab
+  const tab = (await searchParams).tab;
+  let tabValue = '';
 
-  if(!currentUser) {
-    redirect("/login")
+  if (!currentUser) {
+    redirect('/login');
   }
-  console.log(filters);
-  
-  switch (filters) {
-    case "mine":
-      defaultValue = "mine"
+
+  // パラメータによってタブ種類を変更
+  switch (tab) {
+    case 'mine':
+      tabValue = 'mine';
       break;
-    case "following":
-      defaultValue = "following"
+    case 'following':
+      tabValue = 'following';
       break;
     default:
+      tabValue = 'all';
       break;
   }
 
   const cookies = await getCookie();
-  const initialPostsAll = await getPostsAll(page, cookies)
-  const initialMyPosts = await getMyPosts(currentUser.id, page, cookies)
-  const initialFollowingPosts = await getMyFollowingPosts(currentUser.id, page, cookies)
+  const postsConfig = {
+    page: 1,
+    tab: tab,
+    userId: currentUser.id,
+    cookies: cookies,
+  };
+  const initialPosts = await getPosts(postsConfig);
 
   return (
     <div className="mt-10 max-w-[850px] mx-auto px-4 mb-[200px] w-full">
-      <Tabs defaultValue={defaultValue}>
+      <Tabs defaultValue={tabValue}>
         <div className="flex justify-between">
-          <TabPostList/>
-          <PostModal/>
+          <TabPostList />
+          <PostModal />
         </div>
-        <TabsContent value="all">
-          <LoadMore loadMoreAction={loadMorePosts} initialPage={page} type={"all"} userId={currentUser.id}>
-            <PostList initialPosts={initialPostsAll.posts}/>
-          </LoadMore>
-        </TabsContent>
-        <TabsContent value="mine">
-          <LoadMore loadMoreAction={loadMorePosts} initialPage={page} type={"mine"} userId={currentUser.id}>
-            <PostList initialPosts={initialMyPosts.posts}/>
-          </LoadMore>
-        </TabsContent>
-        <TabsContent value="following">
-          <LoadMore loadMoreAction={loadMorePosts} initialPage={page} type={"following"} userId={currentUser.id}>
-            <PostList initialPosts={initialFollowingPosts.posts}/>
-          </LoadMore>
+        <TabsContent value={tabValue}>
+          <PostList posts={initialPosts.posts} />
+          <LoadMorePostList tab={tabValue} userId={currentUser.id} />
         </TabsContent>
       </Tabs>
     </div>
