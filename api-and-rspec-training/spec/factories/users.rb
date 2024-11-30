@@ -17,20 +17,24 @@ FactoryBot.define do
   factory :user do
     username { "testuser" }
     password { "password" }
+    profile { "" }
 
     trait :other_user do
       username { "otheruser" }
       password { "otherpassword" }
+      profile { "" }
     end
 
     trait :another_user do
       username { "another" }
       password { "anotherpassword" }
+      profile { "" }
     end
 
     trait :guest_user do
       username { "guestuser" }
       password { "guestpassword" }
+      profile { "" }
     end
   end
 end

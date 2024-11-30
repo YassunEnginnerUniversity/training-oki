@@ -4,7 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  password_digest :string
-#  profile         :string
+#  profile         :string           not null
 #  username        :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -37,6 +37,11 @@ RSpec.describe User, type: :model do
       FactoryBot.create(:user, username: "unique_user")
       duplicate_user = FactoryBot.build(:user, username: "unique_user")
       expect(duplicate_user).not_to be_valid
+    end
+
+    it "profileは200字以上は無効である" do
+      user.profile = "a" * 201
+      expect(user).not_to be_valid
     end
   end
 end
