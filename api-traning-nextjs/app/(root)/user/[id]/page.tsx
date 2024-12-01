@@ -7,6 +7,7 @@ import { getCurrentUser } from '@/actions/user/getCurrentUser';
 import { generatePokemonIcon } from '@/utils/generatePokemonIcon';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
+import UserEditModal from '@/components/user/UserEditModal';
 
 const UserDetailPage = async ({
   params,
@@ -44,12 +45,16 @@ const UserDetailPage = async ({
               <AvatarFallback>{user.username}</AvatarFallback>
             </Avatar>
           </div>
-          {currentUser.id !== user.id && (
-            <FollowButton
-              userId={user.id}
-              isFollowed={user.is_followed_by_current_user}
-            />
-          )}
+          <div>
+            {currentUser.id === user.id ? (
+              <UserEditModal user={user} />
+            ) : (
+              <FollowButton
+                userId={user.id}
+                isFollowed={user.is_followed_by_current_user}
+              />
+            )}
+          </div>
         </div>
 
         <div className="mt-4">
@@ -58,7 +63,7 @@ const UserDetailPage = async ({
         </div>
 
         <div className="mt-4 text-muted-foreground">
-          <p>{user.username}です。日常で何気なく思ったことをポストしてます。</p>
+          <p>{user.profile}</p>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">

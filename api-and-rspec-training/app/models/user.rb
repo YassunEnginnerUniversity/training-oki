@@ -4,6 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  password_digest :string
+#  profile         :string           not null
 #  username        :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -23,5 +24,6 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, on: :create
+  validates :profile, length: { maximum: 200, message: "200字以上は投稿できません" }
 end

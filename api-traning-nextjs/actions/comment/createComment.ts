@@ -1,6 +1,5 @@
 'user server';
 import { CreateComment } from '@/types/comment/type';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const createComment = async (
