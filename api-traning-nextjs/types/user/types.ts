@@ -7,7 +7,7 @@ export interface User {
 }
 
 export interface UserError {
-  error: string
+  error: string;
 }
 
-export type UserProfileResponse = User | UserError
+export type UserProfileResponse = User | UserError;

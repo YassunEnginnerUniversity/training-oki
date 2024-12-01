@@ -46,9 +46,9 @@ const UserDetailPage = async ({
             </Avatar>
           </div>
           <div>
-            {currentUser.id === user.id? (
-              <UserEditModal user={user}/>
-            ): (
+            {currentUser.id === user.id ? (
+              <UserEditModal user={user} />
+            ) : (
               <FollowButton
                 userId={user.id}
                 isFollowed={user.is_followed_by_current_user}

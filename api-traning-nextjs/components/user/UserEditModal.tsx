@@ -1,46 +1,45 @@
-"use client"
+'use client';
 
-import { useActionState, useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useActionState, useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { User, UserProfileResponse } from "@/types/user/types"
-import { updateProfile } from "@/actions/user/updateProfile"
-
+} from '@/components/ui/dialog';
+import { User, UserProfileResponse } from '@/types/user/types';
+import { updateProfile } from '@/actions/user/updateProfile';
 
 const initialState: UserProfileResponse = { error: '' };
 
 interface UserEditModalProps {
-  user: User
+  user: User;
 }
 
-const UserEditModal = ({user}: UserEditModalProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [username, setUsername] = useState<string>(user.username)
-  const [profile, setProfile] = useState<string>(user.profile)
+const UserEditModal = ({ user }: UserEditModalProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState<string>(user.username);
+  const [profile, setProfile] = useState<string>(user.profile);
 
   const [state, updateProfileAction, isPending] = useActionState(
     updateProfile,
-    initialState
-  )
+    initialState,
+  );
 
   // updateProfileActionの成功時にモーダルを閉じる
   useEffect(() => {
-    if (!isPending && state && !("error" in state)) {
+    if (!isPending && state && !('error' in state)) {
       setTimeout(() => {
         setIsOpen(false);
-      },1000)
+      }, 1000);
     }
   }, [isPending, state]);
-  
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -53,11 +52,12 @@ const UserEditModal = ({user}: UserEditModalProps) => {
             variant="ghost"
             className="absolute right-4 top-3 rounded-full p-2 h-4"
             onClick={() => setIsOpen(false)}
-          >
-          </Button>
+          ></Button>
         </DialogHeader>
         <form action={updateProfileAction}>
-        {state && 'error' in state && (<p className="text-red-500">{state.error}</p>)}
+          {state && 'error' in state && (
+            <p className="text-red-500">{state.error}</p>
+          )}
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="username">Username</Label>
@@ -79,7 +79,9 @@ const UserEditModal = ({user}: UserEditModalProps) => {
                 maxLength={200}
                 rows={7}
               />
-              <p className="text-sm text-gray-500 text-right">{profile.length}/200</p>
+              <p className="text-sm text-gray-500 text-right">
+                {profile.length}/200
+              </p>
             </div>
             <Input name="userId" value={user.id} type="hidden"></Input>
           </div>
@@ -87,15 +89,12 @@ const UserEditModal = ({user}: UserEditModalProps) => {
             <Button variant="outline" onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
-            <Button type="submit">
-              Save
-            </Button>
+            <Button type="submit">Save</Button>
           </div>
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default UserEditModal
-
+export default UserEditModal;
