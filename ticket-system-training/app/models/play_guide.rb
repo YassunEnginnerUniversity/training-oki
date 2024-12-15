@@ -1,0 +1,2 @@
+class PlayGuide < ApplicationRecord
+end

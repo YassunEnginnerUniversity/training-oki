@@ -6,21 +6,31 @@
 
 # Ignore bundler config.
 /api-and-rspec-training/.bundle
+/ticket-system-training/.bundle
 
 # Ignore all environment files (except templates).
 /api-and-rspec-training/.env*
 /api-and-rspec-training/!.env*.erb
+/ticket-system-training/.env*
+/ticket-system-training/!.env*.erb
 
 # Ignore all logfiles and tempfiles.
 /api-and-rspec-training/log/*
 /api-and-rspec-training/tmp/*
 /api-and-rspec-training/!log/.keep
 /api-and-rspec-training/!tmp/.keep
+/ticket-system-training/log/*
+/ticket-system-training/tmp/*
+/ticket-system-training/!log/.keep
+/ticket-system-training/!tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
 /api-and-rspec-training/tmp/pids/*
 /api-and-rspec-training/!tmp/pids/
 /api-and-rspec-training/!tmp/pids/.keep
+/ticket-system-training/tmp/pids/*
+/ticket-system-training/!tmp/pids/
+/ticket-system-training/!tmp/pids/.keep
 
 # Ignore storage (uploaded files in development and any SQLite databases).
 /api-and-rspec-training/storage/*
@@ -28,9 +38,15 @@
 /api-and-rspec-training/tmp/storage/*
 /api-and-rspec-training/!tmp/storage/
 /api-and-rspec-training/!tmp/storage/.keep
+/ticket-system-training/storage/*
+/ticket-system-training/!storage/.keep
+/ticket-system-training/tmp/storage/*
+/ticket-system-training/!tmp/storage/
+/ticket-system-training/!tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
 /api-and-rspec-training/config/master.key
+/ticket-system-training/config/master.key
 
 # Ignore bundler config.
 /rails-tutorial/sample_app/.bundle
@@ -102,4 +118,7 @@
 # typescript
 /api-training-nextjs/*.tsbuildinfo
 /api-training-nextjs/next-env.d.ts
+
+# vscode
+/.vscode
 
