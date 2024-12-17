@@ -9,13 +9,13 @@ class Api::TicketViewsController < ApplicationController
       used_flag = params[:used] #消し込み
 
       # eventテーブルとshowテーブルをINNER JOINさせ、N+1を対策ため、includesで最小限のクエリにする
-      @ticket_views = TicketView.joins(:tickets, event: :show).includes(:tickets, event: { show: {} })
+      @ticket_views = TicketView.joins(tickets: :play_guide, event: :show).includes(tickets: { play_guide: {} }, event: { show: {} })
 
       # 興行IDでフィルタリング
       @ticket_views = @ticket_views.where(shows: { id: show_id }) if show_id.present?
 
       # プレイガイドID（複数）でフィルタリング
-      @ticket_views = @ticket_views.where(shows: { play_guide_id: play_guide_ids }) if play_guide_ids.present?
+      @ticket_views = @ticket_views.where(tickets: { play_guide_id: play_guide_ids }) if play_guide_ids.present?
 
       # 公演ID（複数）でフィルタリング
       @ticket_views = @ticket_views.where(events: { id: event_ids }) if event_ids.present?
@@ -30,7 +30,11 @@ class Api::TicketViewsController < ApplicationController
         @ticket_views = @ticket_views.where(tickets: { used_time: used_flag == "true" ? !nil : nil })
       end
 
-      # 結果をJSONで返却
-      render :index
+       # データ存在確認
+      if @ticket_views.exists?
+        render :index
+      else
+        render json: { message: "チケットビューが存在しないです。" }, status: :not_found
+      end
       end
 end

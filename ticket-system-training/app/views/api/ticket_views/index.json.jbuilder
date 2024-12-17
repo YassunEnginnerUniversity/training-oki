@@ -22,5 +22,10 @@ json.array! @ticket_views do |ticket_view|
     json.id ticket.id
     json.used_time ticket.used_time
     json.transfer_time ticket.transfer_time
+
+    json.play_guide do
+      json.id ticket.play_guide.id
+      json.name ticket.play_guide.name
+    end
   end
 end
