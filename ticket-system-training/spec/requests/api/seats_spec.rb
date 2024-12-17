@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Entrances", type: :request do
+RSpec.describe "Api::Seats", type: :request do
   describe "GET /index" do
     pending "add some examples (or delete) #{__FILE__}"
   end

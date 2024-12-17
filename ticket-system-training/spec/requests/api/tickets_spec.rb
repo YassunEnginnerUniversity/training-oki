@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Shows", type: :request do
+RSpec.describe "Api::Tickets", type: :request do
   describe "GET /index" do
     pending "add some examples (or delete) #{__FILE__}"
   end

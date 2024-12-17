@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "TicketViews", type: :request do
+RSpec.describe "Api::TicketTypes", type: :request do
   describe "GET /index" do
     pending "add some examples (or delete) #{__FILE__}"
   end
