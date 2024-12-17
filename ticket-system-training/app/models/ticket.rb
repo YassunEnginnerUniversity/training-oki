@@ -15,6 +15,7 @@ class Ticket < ApplicationRecord
   belongs_to :ticket_type
   belongs_to :entrance
   belongs_to :ticket_view
+  belongs_to :play_guide
 
   has_many :benefits
 end

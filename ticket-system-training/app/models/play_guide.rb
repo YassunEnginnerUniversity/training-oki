@@ -8,5 +8,5 @@
 #  updated_at :datetime         not null
 #
 class PlayGuide < ApplicationRecord
-  has_many :shows
+  has_many :tickets
 end

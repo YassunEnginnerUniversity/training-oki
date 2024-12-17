@@ -31,12 +31,12 @@ PlayGuide.create!([
 
 # 興行データ
 Show.create!([
-  { name: '興行A', start_datetime: '2024-08-01 10:00:00', end_datetime: '2024-08-01 18:00:00', details: '興行A詳細', organizer_id: 1, play_guide_id: 1 },
-  { name: '興行B', start_datetime: '2024-01-01 18:00:00', end_datetime: '2024-01-02 21:00:00', details: '興行B詳細', organizer_id: 1, play_guide_id: 2 },
-  { name: '興行C', start_datetime: '2024-09-01 09:00:00', end_datetime: '2024-09-01 17:00:00', details: '興行C詳細', organizer_id: 2, play_guide_id: 2 },
-  { name: '興行D', start_datetime: '2024-08-05 11:00:00', end_datetime: '2024-08-05 20:00:00', details: '興行D詳細', organizer_id: 2, play_guide_id: 3 },
-  { name: '興行E', start_datetime: '2024-08-10 12:00:00', end_datetime: '2024-08-10 19:00:00', details: '興行E詳細', organizer_id: 3, play_guide_id: 1 },
-  { name: '興行F', start_datetime: '2024-09-15 10:30:00', end_datetime: '2024-09-15 16:30:00', details: '興行F詳細', organizer_id: 3, play_guide_id: 2 }
+  { name: '興行A', start_datetime: '2024-08-01 10:00:00', end_datetime: '2024-08-01 18:00:00', details: '興行A詳細', organizer_id: 1},
+  { name: '興行B', start_datetime: '2024-01-01 18:00:00', end_datetime: '2024-01-02 21:00:00', details: '興行B詳細', organizer_id: 1},
+  { name: '興行C', start_datetime: '2024-09-01 09:00:00', end_datetime: '2024-09-01 17:00:00', details: '興行C詳細', organizer_id: 2},
+  { name: '興行D', start_datetime: '2024-08-05 11:00:00', end_datetime: '2024-08-05 20:00:00', details: '興行D詳細', organizer_id: 2},
+  { name: '興行E', start_datetime: '2024-08-10 12:00:00', end_datetime: '2024-08-10 19:00:00', details: '興行E詳細', organizer_id: 3},
+  { name: '興行F', start_datetime: '2024-09-15 10:30:00', end_datetime: '2024-09-15 16:30:00', details: '興行F詳細', organizer_id: 3}
 ])
 
 # 公演データ挿入
@@ -99,15 +99,15 @@ TicketView.create!([
 
 # チケットデータ挿入
 Ticket.create!([
-  { used_time: nil, transfer_time: '2024-12-21 18:00:00', ticket_type_id: 1, entrance_id: 1, ticket_view_id: 4 }, # チケットビュー1
-  { used_time: nil, transfer_time: nil, ticket_type_id: 1, entrance_id: 1, ticket_view_id: 2 }, # チケットビュー2
-  { used_time: nil, transfer_time: nil, ticket_type_id: 3, entrance_id: 1, ticket_view_id: 3 }, # チケットビュー3
-  { used_time: nil, transfer_time: '2024-11-21 18:00:00', ticket_type_id: 5, entrance_id: 2, ticket_view_id: 7 }, # チケットビュー4
-  { used_time: nil, transfer_time: nil, ticket_type_id: 5, entrance_id: 2, ticket_view_id: 5 }, # チケットビュー5
-  { used_time: nil, transfer_time: nil, ticket_type_id: 7, entrance_id: 2, ticket_view_id: 6 }, # チケットビュー6
-  { used_time: nil, transfer_time: '2024-12-11 18:00:00', ticket_type_id: 9, entrance_id: 3, ticket_view_id: 1 }, # チケットビュー7
-  { used_time: nil, transfer_time: nil, ticket_type_id: 9, entrance_id: 3, ticket_view_id: 8 }, # チケットビュー8
-  { used_time: nil, transfer_time: nil, ticket_type_id: 11, entrance_id: 3, ticket_view_id: 9 } # チケットビュー9
+  { used_time: nil, transfer_time: '2024-12-21 18:00:00', play_guide_id: 1, ticket_type_id: 1, entrance_id: 1, ticket_view_id: 4 }, # チケットビュー1
+  { used_time: nil, transfer_time: nil, play_guide_id: 1, ticket_type_id: 1, entrance_id: 1, ticket_view_id: 2 }, # チケットビュー2
+  { used_time: nil, transfer_time: nil, play_guide_id: 2, ticket_type_id: 3, entrance_id: 1, ticket_view_id: 3 }, # チケットビュー3
+  { used_time: nil, transfer_time: '2024-11-21 18:00:00', play_guide_id: 1, ticket_type_id: 5, entrance_id: 2, ticket_view_id: 7 }, # チケットビュー4
+  { used_time: nil, transfer_time: nil, play_guide_id: 2, ticket_type_id: 5, entrance_id: 2, ticket_view_id: 5 }, # チケットビュー5
+  { used_time: nil, transfer_time: nil, play_guide_id: 3, ticket_type_id: 7, entrance_id: 2, ticket_view_id: 6 }, # チケットビュー6
+  { used_time: nil, transfer_time: '2024-12-11 18:00:00', play_guide_id: 1, ticket_type_id: 9, entrance_id: 3, ticket_view_id: 1 }, # チケットビュー7
+  { used_time: nil, transfer_time: nil, play_guide_id: 3, ticket_type_id: 9, entrance_id: 3, ticket_view_id: 8 }, # チケットビュー8
+  { used_time: nil, transfer_time: nil, play_guide_id: 1, ticket_type_id: 11, entrance_id: 3, ticket_view_id: 9 } # チケットビュー9
 ])
 
 # 座席データ挿入
