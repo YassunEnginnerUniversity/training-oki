@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :seat do
-    seat_area { "MyString" }
-    seat_number { 1 }
-    ticket { nil }
+    sequence(:seat_area) { |n| "エリア#{('A'.ord + n % 5).chr}" }
+    seat_number { rand(100..500) }
+    association :ticket
   end
 end

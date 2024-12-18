@@ -17,14 +17,14 @@
 #
 FactoryBot.define do
   factory :event do
-    name { "MyString" }
-    details { "MyText" }
-    date { "2024-12-14" }
-    venue { "MyString" }
-    open_time { "2024-12-14 12:29:07" }
-    start_time { "2024-12-14 12:29:07" }
-    end_time { "2024-12-14 12:29:07" }
-    notes { "MyText" }
-    show { nil }
+    sequence(:name) { |n| "公演#{('A'.ord + n - 1).chr('UTF-8')}" }
+    details { "#{name}の詳細" }
+    date { "2024-01-01" }
+    sequence(:venue) { |n| "会場#{('A'.ord + n - 1).chr('UTF-8')}" }
+    open_time { "16:30" }
+    start_time { "17:30" }
+    end_time { "20:30" }
+    association :show
   end
 end
+

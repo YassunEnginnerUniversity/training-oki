@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :transfer do
-    from_user_id { 1 }
-    to_user_id { 1 }
-    ticket_view { nil }
+    association :from_user, factory: :user
+    association :to_user, factory: :user
+    association :ticket_view
   end
 end

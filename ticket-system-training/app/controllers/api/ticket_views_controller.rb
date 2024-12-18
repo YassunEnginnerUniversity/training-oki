@@ -27,7 +27,8 @@ class Api::TicketViewsController < ApplicationController
 
       # 消し込み済みフラグでフィルタリング
       if used_flag.present?
-        @ticket_views = @ticket_views.where(tickets: { used_time: used_flag == "true" ? !nil : nil })
+        @ticket_views = @ticket_views.where.not(tickets: {used_time: nil}) if used_flag == "true"
+        @ticket_views = @ticket_views.where(tickets: {used_time: nil}) if used_flag == "false"
       end
 
        # データ存在確認

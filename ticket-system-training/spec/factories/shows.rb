@@ -14,11 +14,10 @@
 #
 FactoryBot.define do
   factory :show do
-    name { "MyString" }
-    start_datetime { "2024-12-14 12:28:57" }
-    end_datetime { "2024-12-14 12:28:57" }
-    details { "MyText" }
-    organizer { nil }
-    play_guide { nil }
+    sequence(:name) { |n| "興行#{('A'.ord + n - 1).chr}" }
+    start_datetime { "2024-01-01 10:00:00" }
+    end_datetime { "2024-07-31 10:00:00" }
+    details { "#{name}の詳細" }
+    association :organizer
   end
 end

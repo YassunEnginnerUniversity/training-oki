@@ -9,6 +9,7 @@
 #
 FactoryBot.define do
   factory :play_guide do
-    sequence(:name) { |n| "プレイガイド#{('A'..'Z').to_a[n - 1]}" }
+    sequence(:name) { |n| "プレイガイド#{('A'.ord + n - 1).chr}" }
   end
 end
+

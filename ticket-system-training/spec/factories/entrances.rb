@@ -9,6 +9,6 @@
 #
 FactoryBot.define do
   factory :entrance do
-    name { "MyString" }
+    sequence(:name) { |n| "入場口#{('A'..'Z').to_a[n - 1]}" }
   end
 end

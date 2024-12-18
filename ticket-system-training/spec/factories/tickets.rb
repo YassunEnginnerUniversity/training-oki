@@ -13,10 +13,12 @@
 #
 FactoryBot.define do
   factory :ticket do
-    used_time { "2024-12-14 12:30:06" }
-    transfer_time { "2024-12-14 12:30:06" }
-    ticket_type { nil }
-    entrance { nil }
-    ticket_view { nil }
+    used_time { nil }
+    transfer_time { nil }
+    association :play_guide
+    association :ticket_type
+    association :entrance
+    association :ticket_view
   end
 end
+

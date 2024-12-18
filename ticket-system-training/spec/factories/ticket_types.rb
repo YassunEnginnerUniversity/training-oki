@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :ticket_type do
-    name { "MyString" }
-    price { 1.5 }
-    event { nil }
+    sequence(:name) { |n| "券種#{('A'.ord + n - 1).chr}" }
+    price { rand(8000..15000) }
+    association :event
   end
 end

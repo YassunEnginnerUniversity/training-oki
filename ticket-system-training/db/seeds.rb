@@ -103,7 +103,7 @@ Ticket.create!([
   { used_time: nil, transfer_time: nil, play_guide_id: 1, ticket_type_id: 1, entrance_id: 1, ticket_view_id: 2 }, # チケットビュー2
   { used_time: nil, transfer_time: nil, play_guide_id: 2, ticket_type_id: 3, entrance_id: 1, ticket_view_id: 3 }, # チケットビュー3
   { used_time: nil, transfer_time: '2024-11-21 18:00:00', play_guide_id: 1, ticket_type_id: 5, entrance_id: 2, ticket_view_id: 7 }, # チケットビュー4
-  { used_time: nil, transfer_time: nil, play_guide_id: 2, ticket_type_id: 5, entrance_id: 2, ticket_view_id: 5 }, # チケットビュー5
+  { used_time: '2024-01-21 18:00:00', transfer_time: nil, play_guide_id: 2, ticket_type_id: 5, entrance_id: 2, ticket_view_id: 5 }, # チケットビュー5
   { used_time: nil, transfer_time: nil, play_guide_id: 3, ticket_type_id: 7, entrance_id: 2, ticket_view_id: 6 }, # チケットビュー6
   { used_time: nil, transfer_time: '2024-12-11 18:00:00', play_guide_id: 1, ticket_type_id: 9, entrance_id: 3, ticket_view_id: 1 }, # チケットビュー7
   { used_time: nil, transfer_time: nil, play_guide_id: 3, ticket_type_id: 9, entrance_id: 3, ticket_view_id: 8 }, # チケットビュー8

@@ -12,9 +12,9 @@
 #
 FactoryBot.define do
   factory :benefit do
-    name { "MyString" }
-    details { "MyText" }
-    used_time { "2024-12-14 12:30:47" }
-    ticket { nil }
+    sequence(:name) { |n| "特典#{('A'.ord + n).chr}" }
+    details { "チケット用の#{name}" }
+    used_time { nil }
+    association :ticket
   end
 end
