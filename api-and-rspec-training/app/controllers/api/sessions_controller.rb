@@ -12,10 +12,10 @@ class Api::SessionsController < ApplicationController
     user = User.find_by(username: params[:username])
 
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id # セッションにユーザIDを保存
+      session[:user_id] = user.id
       render :create
     else
-      render json: { error: "無効なユーザネームかパスワードです。" }, status: :unauthorized
+      render json: { error: I18n.t('errors.sessions.invalid_credentials') }, status: :unauthorized
     end
   end
 
@@ -23,6 +23,6 @@ class Api::SessionsController < ApplicationController
     reset_session
     cookies.delete(:_api_and_rspec_training_session)
     @current_user = nil
-    render json: { message: "ログアウト完了しました。"}, status: :ok
+    render json: { message: I18n.t('errors.sessions.logout_success') }, status: :ok
   end
 end

@@ -36,5 +36,8 @@ module ApiAndRspecTraining
     config.session_store :cookie_store, key: "_api_and_rspec_training_session"
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: "_api_and_rspec_training_session"
+
+    # Set default locale to Japanese
+    config.i18n.default_locale = :ja
   end
 end
