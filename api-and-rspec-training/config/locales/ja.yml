@@ -1,0 +1,21 @@
+ja:
+  errors:
+    authentication:
+      unauthorized: "認証されていないアクセスです。"
+    users:
+      not_found: "ユーザが見つかりませんでした。"
+      update_failed: "ユーザの更新に失敗しました。"
+      not_authorized: "現在ログインしているユーザーではありません。"
+      forbidden: "現在ログインしているユーザーではありません。"
+    posts:
+      not_found: "該当する投稿が見つかりませんでした。"
+      create_failed: "不正なリクエストであるため、保存できませんでした。"
+    comments:
+      not_found: "該当するコメントが見つかりませんでした。"
+      create_failed: "不正なリクエストであるため、保存できませんでした。"
+    sessions:
+      invalid_credentials: "無効なユーザネームかパスワードです。"
+      logout_success: "ログアウト完了しました。"
+    request:
+      invalid_json: "リクエストはJSON形式である必要があります。"
+      invalid_parameters: "不正なリクエストであるため、保存できませんでした。"

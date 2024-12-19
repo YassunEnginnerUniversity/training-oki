@@ -29,3 +29,20 @@
 
 en:
   hello: "Hello world"
+  errors:
+    authentication:
+      unauthorized: "Unauthorized access"
+    users:
+      not_found: "User not found"
+      update_failed: "Failed to update user"
+      forbidden: "Not authorized to modify this user"
+    posts:
+      not_found: "Post not found"
+    comments:
+      not_found: "Comment not found"
+    sessions:
+      invalid_credentials: "Invalid username or password"
+      logout_success: "Successfully logged out"
+    request:
+      invalid_json: "Request must be in JSON format"
+      invalid_parameters: "Invalid request parameters"

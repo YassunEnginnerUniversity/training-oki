@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
     if @user
       render :me
     else
-      render json: { error: "ユーザが見つかりませんでした。" }, status: :not_found
+      render json: { error: I18n.t('errors.users.not_found') }, status: :not_found
     end
   end
 
@@ -16,7 +16,7 @@ class Api::UsersController < ApplicationController
     if @user
       render :show
     else
-      render json: { error: "ユーザが見つかりませんでした。" }, status: :not_found
+      render json: { error: I18n.t('errors.users.not_found') }, status: :not_found
     end
   end
 
@@ -24,13 +24,13 @@ class Api::UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user.id != current_user.id
-      return render json: { error: "現在ログインしているユーザーではありません。" }, status: :forbidden
+      return render json: { error: I18n.t('errors.users.forbidden') }, status: :forbidden
     end
-    
+
     if @user.update(user_params)
       render :update
     else
-      render json: { error: "ユーザの更新に失敗しました。" }, status: :unprocessable_entity
+      render json: { error: I18n.t('errors.users.update_failed') }, status: :unprocessable_entity
     end
   end
 
