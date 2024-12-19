@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::Users", type: :request do
   let!(:user) { FactoryBot.create(:user) }
-  let!(:other_user) { FactoryBot.create(:user, :other_user)}
+  let!(:other_user) { FactoryBot.create(:user, :other_user) }
   let(:json_response) { JSON.parse(response.body) }
 
   subject { patch "/api/users/#{target_user_id}", params: target_user_data }
@@ -48,13 +48,13 @@ RSpec.describe "Api::Users", type: :request do
 
     context "正しいリクエストの場合" do
       let(:target_user_id) { user.id }
-      let(:target_user_data) {{ user: { username: "changed_username", profile: "This is my profile"}}}
+      let(:target_user_data) { { user: { username: "changed_username", profile: "This is my profile" } } }
       include_examples "Successful case"
     end
-    
+
     context "profileが空の場合" do
       let(:target_user_id) { user.id }
-      let(:target_user_data) {{ user: { profile: ""}}}
+      let(:target_user_data) { { user: { profile: "" } } }
       include_examples "Successful case save empty profile value"
     end
   end
@@ -66,32 +66,32 @@ RSpec.describe "Api::Users", type: :request do
 
     context "profileが200字以上の場合" do
       let(:target_user_id) { user.id }
-      let(:target_user_data) {{ user: { profile: "a" * 201}}}
-      include_examples "Error case", :unprocessable_content , "ユーザの更新に失敗しました。"
+      let(:target_user_data) { { user: { profile: "a" * 201 } } }
+      include_examples "Error case", :unprocessable_content, "ユーザの更新に失敗しました。"
     end
 
     context "不正なキーの場合" do
       let(:target_user_id) { user.id }
-      let(:target_user_data) {{ invalid_key: { username: "changed_username", profile: "This is my profile"}}}
+      let(:target_user_data) { { invalid_key: { username: "changed_username", profile: "This is my profile" } } }
       include_examples "Error case", :bad_request, "Bad Request"
     end
 
     context "空のuserオブジェクトを送信した場合" do
       let(:target_user_id) { user.id }
-      let(:target_user_data) {{ user: {}}}
+      let(:target_user_data) { { user: {} } }
       include_examples "Error case", :bad_request, "Bad Request"
     end
 
     context "自分以外のユーザ情報を編集しようとした場合" do
       let(:target_user_id) { other_user.id }
-      let(:target_user_data) {{ user: { username: "changed_username", profile: "This is my profile"}}}
+      let(:target_user_data) { { user: { username: "changed_username", profile: "This is my profile" } } }
       include_examples "Error case", :forbidden, "現在ログインしているユーザーではありません。"
     end
   end
 
   context "セッションで認証されていない場合" do
     let(:target_user_id) { user.id }
-    let(:target_user_data) {{ user: { username: "changed_username", profile: "This is my profile"}}}
+    let(:target_user_data) { { user: { username: "changed_username", profile: "This is my profile" } } }
     include_examples "Error case", :unauthorized, "認証されていないアクセスです。"
   end
 end

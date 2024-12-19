@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe "Api::Posts", type: :request do
   let!(:user) { FactoryBot.create(:user) }
-  let!(:other_user) { FactoryBot.create(:user, :other_user)}
-  let!(:another_user) { FactoryBot.create(:user, :another_user)}
-  let!(:follow_user) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: other_user.id)}
-  let!(:follow_user02) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: another_user.id)}
+  let!(:other_user) { FactoryBot.create(:user, :other_user) }
+  let!(:another_user) { FactoryBot.create(:user, :another_user) }
+  let!(:follow_user) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: other_user.id) }
+  let!(:follow_user02) { FactoryBot.create(:follow_user, follower_id: user.id, followed_id: another_user.id) }
   let!(:following_ids) { user.followings }
-  let!(:following_posts) { Post.where(user_id: following_ids)}
- 
+  let!(:following_posts) { Post.where(user_id: following_ids) }
+
   let!(:other_user_id) { 9999 }
   let!(:other_user_post_id) { 9999 }
   let(:json_response) { JSON.parse(response.body) }

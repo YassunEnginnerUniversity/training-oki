@@ -26,7 +26,7 @@ class Api::UsersController < ApplicationController
     if @user.id != current_user.id
       return render json: { error: "現在ログインしているユーザーではありません。" }, status: :forbidden
     end
-    
+
     if @user.update(user_params)
       render :update
     else

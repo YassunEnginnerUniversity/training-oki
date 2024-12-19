@@ -24,7 +24,7 @@ class Api::LikesController < ApplicationController
         like.delete
         render :delete
       else
-        render json: { error: 'いいねが存在しません。' }, status: :not_found
+        render json: { error: "\u3044\u3044\u306D\u304C\u5B58\u5728\u3057\u307E\u305B\u3093\u3002" }, status: :not_found
       end
   end
 end

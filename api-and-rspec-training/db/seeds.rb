@@ -68,4 +68,3 @@ users.each do |follower|
 end
 
 puts 'Seeding completed successfully!'
-
