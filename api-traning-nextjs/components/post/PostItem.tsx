@@ -51,34 +51,51 @@ const PostItem = ({ post }: PostItemProps) => {
   };
 
   return (
-    <Card onClick={handleCardClick} className="cursor-pointer">
-      <CardHeader>
+    <Card
+      onClick={handleCardClick}
+      className="cursor-pointer hover:shadow-md transition-all duration-200 dark:bg-gray-950 dark:border-gray-800"
+    >
+      <CardHeader className="space-y-3">
         <div className="flex items-center space-x-4">
-          <Avatar>
+          <Avatar className="border-2 border-gray-100 dark:border-gray-800">
             <AvatarImage
               src={`/pokemon/${generatePokemonIcon(post.user.username)}.png`}
               alt={post.user.username}
             />
-            <AvatarFallback>{post.user.username}</AvatarFallback>
+            <AvatarFallback className="bg-gray-100 dark:bg-gray-800">
+              {post.user.username}
+            </AvatarFallback>
           </Avatar>
-          <div onClick={(e) => e.stopPropagation()}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex flex-col space-y-1"
+          >
             <Link
               href={`/user/${postState.user.id}`}
-              className="font-semibold hover:underline"
+              className="font-semibold text-gray-900 dark:text-gray-100 hover:underline transition-colors"
             >
               {postState.user.username}
             </Link>
-            <p className="text-sm text-gray-500">@{postState.user.username}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              @{postState.user.username}
+            </p>
           </div>
         </div>
       </CardHeader>
-      <CardContent>
-        <p className="leading-7">{postState.content}</p>
+      <CardContent className="pb-4">
+        <p className="leading-7 text-gray-800 dark:text-gray-200">
+          {postState.content}
+        </p>
       </CardContent>
-      <CardFooter>
-        <div className="flex space-x-4 text-gray-500">
+      <CardFooter className="border-t dark:border-gray-800 pt-4">
+        <div className="flex space-x-6 text-gray-500 dark:text-gray-400">
           <form action={handleLike} onClick={(e) => e.stopPropagation()}>
-            <Button type="submit" variant="ghost" size="sm">
+            <Button
+              type="submit"
+              variant="ghost"
+              size="sm"
+              className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
               {postState.is_liked_by_current_user ? (
                 <Heart
                   color="red"
@@ -89,12 +106,16 @@ const PostItem = ({ post }: PostItemProps) => {
               ) : (
                 <Heart className="w-4 h-4 mr-2" />
               )}
-              {postState.likes_count}
+              <span className="font-medium">{postState.likes_count}</span>
             </Button>
           </form>
-          <Button variant="ghost" size="sm">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
             <MessageCircle className="w-4 h-4 mr-2" />
-            {postState.comments_count}
+            <span className="font-medium">{postState.comments_count}</span>
           </Button>
         </div>
       </CardFooter>

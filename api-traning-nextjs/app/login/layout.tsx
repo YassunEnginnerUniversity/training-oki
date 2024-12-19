@@ -19,9 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className={noto.className}>
-        <main>{children}</main>
+    <html lang="ja" className="dark">
+      <body className={`${noto.className} antialiased`}>
+        <main className="min-h-screen bg-background">{children}</main>
       </body>
     </html>
   );
