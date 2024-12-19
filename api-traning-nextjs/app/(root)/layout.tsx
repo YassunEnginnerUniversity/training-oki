@@ -21,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className={noto.className}>
+    <html lang="ja" className="dark">
+      <body className={`${noto.className} antialiased`}>
         <PageHeader />
         <main className="flex pt-[92px]">
           <Sidebar />

@@ -6,34 +6,33 @@ const PageHeader = async () => {
   const currentUser = await getCurrentUser();
 
   return (
-    <header className="border-b fixed top-0 left-0 w-full bg-white z-50">
-      <div className="flex items-center justify-between px-8 py-7">
-        <div className="">
-          <h1 className="text-xl">API-Traning-Nextjs</h1>
+    <header className="border-b fixed top-0 left-0 w-full bg-white dark:bg-gray-950 z-50">
+      <div className="container mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+        <div>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            API-Traning-Nextjs
+          </h1>
         </div>
-        <div className="flex items-center gap-6">
+        <nav className="flex items-center gap-8">
           {currentUser ? (
             <>
-              <div>
-                <Link
-                  href={'/user/' + currentUser.id}
-                  className="text-base hover:opacity-70"
-                >
-                  {currentUser.username}
-                </Link>
-              </div>
-              <div>
-                <LogoutButton />
-              </div>
+              <Link
+                href={'/user/' + currentUser.id}
+                className="text-base text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                {currentUser.username}
+              </Link>
+              <LogoutButton />
             </>
           ) : (
-            <div>
-              <Link href={'/login'} className="justify-self-end">
-                ログイン
-              </Link>
-            </div>
+            <Link
+              href={'/login'}
+              className="text-base text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              ログイン
+            </Link>
           )}
-        </div>
+        </nav>
       </div>
     </header>
   );
